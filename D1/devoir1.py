@@ -22,8 +22,8 @@ from sklearn.manifold import Isomap
 
 
 class DataParser:
-  def __init__(self):
-    data_features_db = pd.read_csv('adult.csv').to_numpy()
+  def __init__(self,database: str):
+    data_features_db = pd.read_csv(database).to_numpy()
     self.data_features = np.delete(data_features_db,0,0)
 
   def splitData(self):
