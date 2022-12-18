@@ -3,13 +3,16 @@ import numpy as np
 import matplotlib as plt
 import scipy as sp 
 import pandas as pd
+from scipy.spatial.distance import euclidean
+from scipy.spatial.distance import cosine
 
 #classification
 from sklearn.neighbors import KNeighborsClassifier #k-plus proches voisins
 
 #Partitionnement
 from sklearn.cluster import AgglomerativeClustering #Regroupement hiérarchique (Paritionnement binaire)
-#from pyclustering.cluster.kmedoids import kmedoids
+from pyclustering.cluster.kmedoids import kmedoids
+#from sklearn_extra.cluster import KMedoids
 
 #réduction de dimensionnalité
 from sklearn.decomposition import KernelPCA #ce n'est pas PCoA mais on peut l'utiliser pour que le résultat soit le même
@@ -22,8 +25,8 @@ from sklearn.manifold import Isomap
 
 
 class DataParser:
-  def __init__(self):
-    data_features_db = pd.read_csv('D1/adult.csv').to_numpy()
+  def __init__(self,database: str):
+    data_features_db = pd.read_csv(database).to_numpy()
     self.data_features = np.delete(data_features_db,0,0)
 
   def splitData(self):
@@ -127,3 +130,73 @@ adult_dissimilarity(train_set[:19536], train_set[19536:39072])
 
 ##-------------------------------------------MNIST----------------------------------------------------------#
 
+
+##                                          SIMILARITY
+#  X: size m.     Vector data point 
+#  Y: size n.     Vector data point
+#  alpha: coefficient of weight of the euclidian distance
+#
+#  Returns the gradient matrix of W which is of size m*n
+
+def similarity(X, Y,alpha: float=0.5):
+
+  euclidean_distance = euclidean(X, Y)
+
+  cosine_dist = cosine(X, Y)
+  cosine_sim = 1 - cosine_dist
+
+  return alpha * euclidean_distance + (1 - alpha) * cosine_sim
+
+##                                          SIMILARITY MATRIX
+#  points: size nxm Our points to compare 
+#
+#  return a matrix of n x n containing the combined similarity between each pair of points
+def similarity_matrix(points):
+  n = points.shape[0]
+  sim_matrix = np.empty((n, n))
+  for i in range(n):
+    for j in range(n):
+      sim_matrix[i][j] = similarity(points[i], points[j])
+    print('punto '+str(i)+'/'+str(n))
+  return sim_matrix
+
+##                                          TEST
+dp = DataParser(database='D1/mnist.csv')
+mnist_train,mnist_test=dp.splitData()
+
+trainSimilarity = similarity_matrix(mnist_train)
+testSimilarity = similarity_matrix(mnist_test)
+
+plt.figure(figsize=(6,6)).add_subplot(111).imshow(similarity)
+
+##                                          K-NN
+# Create an instance of the KNN classifier
+knn = KNeighborsClassifier(n_neighbors=5, metric='precomputed', algorithm='brute')
+
+# Fit the model to the training data
+knn.fit(trainSimilarity)
+
+# Use the model to make predictions on the test data
+predictions = knn.predict(mnist_test)
+
+##                                          K-Medoids
+initial_medoids = [0,1,2] # no se que pedo con esto
+# Create an instance of the K-Medoids model
+kmedoids_instance = kmedoids(trainSimilarity, initial_medoids, data_type='distance_matrix')
+
+# Fit the model to the data
+kmedoids_instance.process() #training
+
+
+# Predict the cluster labels for the data
+kmedoids_instance.predict(mnist_test)
+
+##                                          PCoA
+pcoa = KernelPCA(n_components=1, kernel='precomputed')
+pcoa_circle = pcoa.fit_transform(-.5*trainSimilarity**2) #-.5*D**2 est crucial!!!
+pcoa_infinity = pcoa.transform(-.5*testSimilarity**2) #-.5*D**2 est crucial!!!
+
+##                                          Isomap
+isomap = Isomap(n_components=1, n_neighbors=2, metric='precomputed')
+isomap_circle = isomap.fit_transform(trainSimilarity)
+isomap_infinity = isomap.transform(testSimilarity)
