@@ -23,7 +23,7 @@ from sklearn.manifold import Isomap
 
 class DataParser:
   def __init__(self):
-    data_features_db = pd.read_csv('adult.csv').to_numpy()
+    data_features_db = pd.read_csv('D1/adult.csv').to_numpy()
     self.data_features = np.delete(data_features_db,0,0)
 
   def splitData(self):
@@ -47,7 +47,7 @@ class DataParser:
     test_x = np.array(test_features)
 
     return (training_x, test_x)
-#                   MNIST
+
 
 
 ##                                          SIMILARITY
@@ -69,40 +69,41 @@ class DataParser:
 # 14, class, cat
 
 
-def adult_dissimilarity(x, y):
-  numeric_feats_x = x[0,4,10,11,12]
-  numeric_feats_y = y[0,4,10,11,12]
+def adult_dissimilarity(x, y, avg, std):
+
+  #initialisation
+  numeric_feats_x = np.array(x[:, [0,4,10,11,12]])
+  numeric_feats_y = np.array(y[:, [0,4,10,11,12]]) 
+  categoric_feats_x = x[:, [1,5,6,7,8,9,13,14]]
+  categoric_feats_y = y[:, [1,5,6,7,8,9,13,14]]
+
+  #standardisation des données, soustraction de la moyenne innécessaire
+  #car il s'agit d'une différence
+  delta = np.subtract(numeric_feats_x, numeric_feats_y)
+  delta = np.divide(delta, std)
   #distance euclidienne sur features numériques
-  num_dissimilarity = np.linalg.norm(numeric_feats_x - numeric_feats_y)
-  avg = np.mean(num_dissimilarity)
-  std = np.std(num_dissimilarity)
-  num_dissimilarity /= std
-  #estimation du poids pour les features catégoriques
+  num_dissimilarity = np.linalg.norm(delta, axis=1)
   
-
-  #usamos distancia euclidiana normalizada por valores numericos 
-  #y le sumamos la fraccion de mismas valores categoricas * promedio 
-
-  categoric_feats_x = x[1,5,6,7,8,9,13,14]
-  categoric_feats_y = y[1,5,6,7,8,9,13,14]
-
-  cat_dissimilarity = 0
-  for i in range (len(categoric_feats_x)):
-    if categoric_feats_x == categoric_feats_y:
-      cat_dissimilarity += avg
+  #estimation du poids pour les features catégoriques
+  global_num_avg = np.mean(avg)
+  
+  #calcul de la dissimilarité 
+  n_common_feats =  np.sum(categoric_feats_x == categoric_feats_y, axis=1)
+  cat_dissimilarity = global_num_avg * n_common_feats
   return num_dissimilarity + cat_dissimilarity
-    
-def numeric_distance_avg(X,Y):
-  numeric_feats_x = X[0,4,10,11,12]
-  numeric_feats_y = Y[0,4,10,11,12]
-  dissimilarity = np.linalg.norm(numeric_feats_x - numeric_feats_y)
-  return np.mean(dissimilarity)
+
+def adult_dissimilarity_matrix(X,Y):
+    dis_matrix = np.zeros(shape=(len(X),len(Y)))
+    for i in range()
+
+
+def numeric_distance_avg(X):
+  numeric_feats_x = X[:, [0,4,10,11,12]]
+  return np.mean(numeric_feats_x)
 
 def numeric_distance_std(X,Y):
-  numeric_feats_x = X[0,4,10,11,12]
-  numeric_feats_y = Y[0,4,10,11,12]
-  dissimilarity = np.linalg.norm(numeric_feats_x - numeric_feats_y)
-  return np.std(dissimilarity, axis=0)
+  numeric_feats_x = X[:, [0,4,10,11,12]]
+  return np.std(numeric_feats_x, axis=0)
 
 
 def adult_dissimilarity_matrix(X,Y):
@@ -110,7 +111,10 @@ def adult_dissimilarity_matrix(X,Y):
 
 
 dp = DataParser()
-  
+train_set, test_set = dp.splitData()
+#adult_dissimilarity(train_set[0], train_set[1] )
+adult_dissimilarity(train_set[:19536], train_set[19536:39072])
+
 
 
   
