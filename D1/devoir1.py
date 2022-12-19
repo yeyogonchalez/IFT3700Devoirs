@@ -13,7 +13,8 @@ from sklearn.neighbors import KNeighborsClassifier #k-plus proches voisins
 from sklearn.cluster import AgglomerativeClustering #Regroupement hiérarchique (Paritionnement binaire)
 from pyclustering.cluster.kmedoids import kmedoids
 from pyclustering.cluster.silhouette import silhouette
-#from sklearn.extra.cluster import KMedoids
+from sklearn.metrics import silhouette_score
+from sklearn_extra.cluster import KMedoids
 
 #réduction de dimensionnalité
 from sklearn.decomposition import KernelPCA #ce n'est pas PCoA mais on peut l'utiliser pour que le résultat soit le même
@@ -99,15 +100,19 @@ def adult_dissimilarity(x, y, avg, std):
   cat_dissimilarity = weight * n_different_feats
   return num_dissimilarity + cat_dissimilarity
 
-def adult_dissimilarity_matrix(X, Y, D):
-    dis_matrix = np.zeros(shape=(len(X),len(Y)))
+def adult_dissimilarity_matrix(X, Y, D, recompute):
+  if recompute:
+    diss_matrix = np.zeros(shape=(len(X),len(Y)))
     avg = numeric_distance_avg(D)
     std = numeric_distance_std(D)
     for i in range(len(X)):
       for j in range(len(Y)):
-        dis_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
+        diss_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
+    np.save('diss_matrix.npy', diss_matrix)
+  else:
+    diss_matrix = np.load('diss_matrix.npy')
+  return diss_matrix
 
-    return dis_matrix
 
 def numeric_distance_avg(X):
   numeric_feats_x = X[:, [0,4,10,11,12]].astype(float)
@@ -165,9 +170,29 @@ kmedoids_test = kmedoids_instance.predict(test_set_dissimilarity)
 
 
 #silhouette score
-silhouette_train_score = silhouette(kmedoids_train, clusters, data_type='distance_matrix').process().get_score()
-silhouette_test_score = silhouette(kmedoids_train, clusters, data_type='distance_matrix').process().get_score()
-a=1
+# silhouette_train_score = silhouette(train_set_dissimilarity, clusters, data_type='distance_matrix').process().get_score()
+# silhouette_test_score = silhouette(test_set_dissimilarity, clusters, data_type='distance_matrix').process().get_score()
+def compute_silhouette_score(dissimilarity_matrix, clusters):
+    # Calculate the silhouette score for each sample
+    scores = []
+    for i, cluster in enumerate(clusters):
+        # Calculate the average dissimilarity of the sample to other samples in its own cluster
+        a = np.mean([dissimilarity_matrix[i][j] for j in cluster])
+        
+        # Calculate the average dissimilarity of the sample to samples in the next nearest cluster
+        b = np.min([np.mean([dissimilarity_matrix[i][j] for j in clusters[k]]) for k in range(len(clusters)) if k != i])
+        
+        # Calculate the silhouette score for the sample
+        score = (b - a) / max(a, b)
+        scores.append(score)
+    
+    # Return the average silhouette score for the dataset
+    return np.mean(scores)
+
+train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, clusters)
+test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, clusters)
+print(silhouette_score)
+
 
 # ##                                           REGROUPEMENT HIÉRARCHIQUE 
 # def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
