@@ -12,7 +12,7 @@ from sklearn.neighbors import KNeighborsClassifier #k-plus proches voisins
 #Partitionnement
 from sklearn.cluster import AgglomerativeClustering #Regroupement hiérarchique (Paritionnement binaire)
 from pyclustering.cluster.kmedoids import kmedoids
-#from sklearn_extra.cluster import KMedoids
+from sklearn_extra.cluster import KMedoids
 
 #réduction de dimensionnalité
 from sklearn.decomposition import KernelPCA #ce n'est pas PCoA mais on peut l'utiliser pour que le résultat soit le même
@@ -29,25 +29,27 @@ class DataParser:
     data_features_db = pd.read_csv(database).to_numpy()
     self.data_features = np.delete(data_features_db,0,0)
 
-  def splitData(self):
+  def get_features(self):
+    return self.data_features
+
+  def splitData(self, sample_size):
     features = self.data_features
     size = len(features)
-
     training_features = []
     test_features = []
-
 
     for i in range(size):
       if i%5==1:
         test_features.append(features[i])
-  
       else:
         training_features.append(features[i])
 
-    
-
     training_x = np.array(training_features)
     test_x = np.array(test_features)
+
+    #échantillonage
+    training_x = training_x[np.random.choice(training_x.shape[0], np.floor(sample_size*4/5).astype(int), replace=False), :]
+    test_x = test_x[np.random.choice(test_x.shape[0], np.floor(sample_size*0.2).astype(int), replace=False), :]
 
     return (training_x, test_x)
 
@@ -75,54 +77,108 @@ class DataParser:
 def adult_dissimilarity(x, y, avg, std):
 
   #initialisation
-  numeric_feats_x = np.array(x[:, [0,4,10,11,12]])
-  numeric_feats_y = np.array(y[:, [0,4,10,11,12]]) 
-  categoric_feats_x = x[:, [1,5,6,7,8,9,13,14]]
-  categoric_feats_y = y[:, [1,5,6,7,8,9,13,14]]
+  numeric_feats_x = np.array([x[index] for index in (0,4,10,11,12)]).astype(float)
+  numeric_feats_y = np.array([y[index] for index in (0,4,10,11,12)]).astype(float)
+  categoric_feats_x = np.array([x[index] for index in (1,5,6,7,8,9,13,14)])
+  categoric_feats_y = np.array([y[index] for index in (1,5,6,7,8,9,13,14)])
 
   #standardisation des données, soustraction de la moyenne innécessaire
-  #car il s'agit d'une différence
+  #car il s'agit d'une différence de points
   delta = np.subtract(numeric_feats_x, numeric_feats_y)
   delta = np.divide(delta, std)
   #distance euclidienne sur features numériques
-  num_dissimilarity = np.linalg.norm(delta, axis=1)
+  num_dissimilarity = np.linalg.norm(delta)
   
   #estimation du poids pour les features catégoriques
-  global_num_avg = np.mean(avg)
+  avg_std_num_dissimilarity = np.linalg.norm(avg/std) 
+  weight = avg_std_num_dissimilarity / len(numeric_feats_x)
   
   #calcul de la dissimilarité 
-  n_common_feats =  np.sum(categoric_feats_x == categoric_feats_y, axis=1)
-  cat_dissimilarity = global_num_avg * n_common_feats
+  n_different_feats =  np.sum(categoric_feats_x != categoric_feats_y, axis=0)
+  cat_dissimilarity = weight * n_different_feats
   return num_dissimilarity + cat_dissimilarity
 
-def adult_dissimilarity_matrix(X,Y):
+def adult_dissimilarity_matrix(X, Y, D):
     dis_matrix = np.zeros(shape=(len(X),len(Y)))
-    for i in range()
+    avg = numeric_distance_avg(D)
+    std = numeric_distance_std(D)
+    for i in range(len(X)):
+      for j in range(len(Y)):
+        dis_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
 
+    return dis_matrix
 
 def numeric_distance_avg(X):
-  numeric_feats_x = X[:, [0,4,10,11,12]]
-  return np.mean(numeric_feats_x)
+  numeric_feats_x = X[:, [0,4,10,11,12]].astype(float)
+  return np.mean(numeric_feats_x, axis=0)
 
-def numeric_distance_std(X,Y):
-  numeric_feats_x = X[:, [0,4,10,11,12]]
+def numeric_distance_std(X):
+  numeric_feats_x = X[:, [0,4,10,11,12]].astype(float)
   return np.std(numeric_feats_x, axis=0)
 
 
-def adult_dissimilarity_matrix(X,Y):
-  return adult_dissimilarity(X, Y)
-
-
-dp = DataParser()
-train_set, test_set = dp.splitData()
-#adult_dissimilarity(train_set[0], train_set[1] )
-adult_dissimilarity(train_set[:19536], train_set[19536:39072])
 
 
 
-  
 
 
+##                                          INIT
+dp = DataParser("D1/adult.csv")
+train_set, test_set = dp.splitData(1000)
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features())
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features())
+
+
+##                                          ISOMAP
+isomap = Isomap(n_components=1, n_neighbors=2, metric='precomputed')
+isomap_train = isomap.fit_transform(train_set_dissimilarity)
+isomap_test = isomap.transform(test_set_dissimilarity)
+
+fig = plt.figure(figsize=(12, 8))
+ax = fig.add_subplot(211)
+ax.set_title('Train Isomap')
+ax.scatter(isomap_circle, np.zeros_like(isomap_circle), c=theta);
+
+ax = fig.add_subplot(212)
+ax.set_title('Cosine Isomap sur infinity')
+ax.scatter(isomap_infinity, np.zeros_like(isomap_infinity), c=theta2);
+
+
+# ##                                          PCOA
+# pcoa = KernelPCA(n_components=1, kernel='precomputed')
+# pcoa_circle = pcoa.fit_transform(-.5*train_set_dissimilarity**2)
+# pcoa_infinity = pcoa.transform(-.5*test_set_dissimilarity**2) 
+
+# ##                                          K-MEDOIDS
+# initial_medoids = [0,1,2]
+# kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
+# kmedoids_instance.process() #training
+
+# kmedoids_circle = kmedoids_instance.predict(train_set_dissimilarity)
+# kmedoids_infinity = kmedoids_instance.predict(test_set_dissimilarity)
+
+# ##                                           REGROUPEMENT HIÉRARCHIQUE 
+# def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
+#     average_dissimilarity = list()
+#     for i in range(agglomerative_clustering.n_clusters):
+#         ith_clusters_dissimilarity = dissimilarity_matrix[:, np.where(agglomerative_clustering.labels_==i)[0]]
+#         average_dissimilarity.append(ith_clusters_dissimilarity.mean(axis=1))
+#     return np.argmin(np.stack(average_dissimilarity), axis=0)
+
+# agglomerative_clustering = AgglomerativeClustering(n_clusters=5, affinity='precomputed', linkage='average')
+# agglomerative_clustering.fit(train_set_dissimilarity)
+
+# agglo_circle = agglomerative_clustering_predict(agglomerative_clustering, train_set_dissimilarity)
+# agglo_infinity = agglomerative_clustering_predict(agglomerative_clustering, test_set_dissimilarity)
+
+
+
+# quadrants = 1
+# knn = KNeighborsClassifier(n_neighbors=2, metric='precomputed', algorithm='brute')
+# knn.fit(train_set_dissimilarity, quadrants)
+
+# knn_circle = knn.predict(train_set_dissimilarity)
+# knn_infinity = knn.predict(test_set_dissimilarity)
 
 ##----------------------------------------------------------------------------------------------------------#
 
@@ -161,13 +217,13 @@ def similarity_matrix(points):
   return sim_matrix
 
 ##                                          TEST
-dp = DataParser(database='D1/mnist.csv')
-mnist_train,mnist_test=dp.splitData()
+# dp = DataParser(database='D1/mnist.csv')
+# mnist_train,mnist_test=dp.splitData()
 
-trainSimilarity = similarity_matrix(mnist_train)
-testSimilarity = similarity_matrix(mnist_test)
+# trainSimilarity = similarity_matrix(mnist_train)
+# testSimilarity = similarity_matrix(mnist_test)
 
-plt.figure(figsize=(6,6)).add_subplot(111).imshow(similarity)
+# plt.figure(figsize=(6,6)).add_subplot(111).imshow(similarity)
 
 ##                                          K-NN
 # Create an instance of the KNN classifier
