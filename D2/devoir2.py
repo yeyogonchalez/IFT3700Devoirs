@@ -14,13 +14,16 @@ def intervalMedian(x):
     return median_val
 
 # Replace 'FILE_NAME' with the name of the CSV file you want to read
-file_name = 'D2/untreated_columns/Age_of_criminal_responsibility_1.csv'
+file_name = 'D2/untreated_columns/List_of_countries_by_suicide_rate_1.csv'
 
 # Read the CSV file into a Pandas DataFrame, specifying that the values are surrounded by single quotes
 df = pd.read_csv(file_name)
 
+# Replace the commas with dots in the values
+df = df.applymap(lambda x: x.replace(',', '') if isinstance(x, str) else x)
+
 # Remove the apostrophes from the values in the DataFrame
-#df = df.applymap(lambda x: x.strip('"'))
+df = df.applymap(lambda x: str(x).strip('"'))
 
 titles=df.iloc[:,0]
 
@@ -38,7 +41,7 @@ df = df.iloc[:, selected_columns]
 
 
 # Convert the values to floats, replacing missing values with NaN
-df = df.applymap(lambda x: intervalMedian(str(x)) if '-' in str(x)  else float(x))
+#df = df.applymap(lambda x: intervalMedian(str(x)) if '-' in str(x)  else float(x))
 
 # Convert the values to floats, replacing missing values with NaN
 df = df.applymap(lambda x: float(x) if x != ('–' or '-') else float('nan'))
