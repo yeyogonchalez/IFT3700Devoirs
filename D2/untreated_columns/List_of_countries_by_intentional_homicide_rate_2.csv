@@ -1,0 +1,196 @@
+Location,Region,Subregion,Rate,Count,Year,Source
+Afghanistan *,Asia,Southern Asia,6.7,"2,474",2018,NSO
+Albania *,Europe,Southern Europe,2.1,61,2020,NSO
+Algeria,Africa,Northern Africa,1.3,580,2020,CTS
+Andorra,Europe,Southern Europe,2.6,2,2020,CTS
+Angola,Africa,Middle Africa,4.8,"1,217",2012,NSO
+Anguilla,Americas,Caribbean,28.3,4,2014,SDG
+Antigua and Barbuda,Americas,Caribbean,11.1,10,2012,OAS
+Argentina *,Americas,South America,5.3,"2,362",2018,MoS
+Armenia *,Asia,Western Asia,1.8,52,2020,CTS
+Aruba,Americas,Caribbean,1.9,2,2014,MD
+Australia *,Oceania,"Australia, New Zealand",0.9,221,2020,CTS
+Austria *,Europe,Western Europe,0.7,65,2020,CTS
+Azerbaijan,Asia,Western Asia,2.3,230,2020,CTS
+Bahamas,Americas,Caribbean,18.6,73,2020,CTS
+Bahrain *,Asia,Western Asia,0.5,7,2014,MD
+Bangladesh *,Asia,Southern Asia,2.4,"3,830",2018,NP
+Barbados,Americas,Caribbean,9.8,28,2018,CTS
+Belarus,Europe,Eastern Europe,2.4,226,2018,CTS
+Belgium *,Europe,Western Europe,1.7,193,2017,CTS
+Belize *,Americas,Central America,25.7,102,2020,CTS
+Benin *,Africa,Western Africa,1.1,126,2017,CTS
+Bermuda,Americas,Northern America,8.1,5,2017,CTS
+Bhutan *,Asia,Southern Asia,2.5,19,2020,CTS
+Bolivia *,Americas,South America,6.2,686,2016,CTS
+Bosnia and Herzegovina,Europe,Southern Europe,1.2,39,2018,CTS
+Botswana,Africa,Southern Africa,15.2,303,2010,WHO
+Brazil *,Americas,South America,22.45,"47,722",2020,DATASUS
+British Virgin Islands,Americas,Caribbean,8.3,2,2006,MD
+Brunei,Asia,South-Eastern Asia,0.5,2,2013,WHO
+Bulgaria *,Europe,Eastern Europe,1.0,69,2020,CTS
+Burkina Faso,Africa,Western Africa,1.3,240,2017,MoJ
+Burundi,Africa,Eastern Africa,6.1,635,2016,SDG
+Cape Verde *,Africa,Western Africa,6.5,36,2020,CTS
+Cambodia *,Asia,South-Eastern Asia,1.8,268,2011,WHO
+Cameroon,Africa,Middle Africa,1.4,341,2017,CTS
+Canada *,Americas,Northern America,2.0,743,2020,NP
+Cayman Islands,Americas,Caribbean,8.2,5,2014,NSO
+Central African Republic,Africa,Middle Africa,20.1,913,2016,CTS
+Channel Islands,Europe,Northern Europe,0,0,2010,NP
+Chile *,Americas,South America,4.4,825,2018,CTS
+China *,Asia,Eastern Asia,0.5,"7,525",2018,NSO
+Colombia *,Americas,South America,22.6,"11,520",2020,CTS
+Costa Rica *,Americas,Central America,11.2,570,2020,CTS
+Croatia,Europe,Southern Europe,1.0,39,2020,CTS
+Cuba *,Americas,Caribbean,5.0,572,2016,MoH
+Curaçao,Americas,Caribbean,19,26,2007,PAHO
+Cyprus,Asia,Western Asia,1.2,15,2020,CTS
+Czech Republic *,Europe,Eastern Europe,0.7,77,2020,CTS
+Denmark *,Europe,Northern Europe,1.0,55,2020,CTS
+Dominica,Americas,Caribbean,20.8,15,2020,CTS
+Dominican Republic *,Americas,Caribbean,8.9,961,2020,CTS
+Ecuador *,Americas,South America,7.8,"1,372",2020,CTS
+Egypt *,Africa,Northern Africa,2.6,"2,207",2012,CTS
+El Salvador *,Americas,Central America,37.2,"2,398",2019,CTS
+England and Wales *,Europe,Northern Europe,1.2,726,2017,CTS
+Estonia *,Europe,Northern Europe,3.2,42,2020,CTS
+Eswatini,Africa,Southern Africa,11.6,130,2017,GSH
+Ethiopia *,Africa,Eastern Africa,8.8,"8,153",2012,GOV
+Finland *,Europe,Northern Europe,1.6,91,2020,CTS
+France *,Europe,Western Europe,1.2,779,2018,CTS
+French Guiana,Americas,South America,13.2,30,2009,NP
+Georgia,Asia,Western Asia,2.2,89,2018,CTS
+Germany *,Europe,Western Europe,0.8,782,2020,CTS
+Ghana *,Africa,Western Africa,2.1,609,2017,NP
+Gibraltar *,Europe,Southern Europe,3.0,1,2010,NP
+Greece *,Europe,Southern Europe,0.8,78,2020,CTS
+Greenland,Americas,Northern America,5.3,3,2016,NSO
+Grenada,Americas,Caribbean,10.8,12,2017,CTS
+Guadeloupe *,Americas,Caribbean,5.8,23,2016,GOV
+Guatemala *,Americas,Central America,22.5,"3,881",2018,NP
+Guinea-Bissau,Africa,Western Africa,1.1,21,2017,CTS
+Guyana *,Americas,South America,20.0,157,2020,CTS
+Haiti *,Americas,Caribbean,6.7,743,2018,DPKO
+Holy See,Europe,Southern Europe,0,0,2015,CTS
+Honduras *,Americas,Central America,36.3,"3,598",2020,CTS
+Hong Kong *,Asia,Eastern Asia,0.3,22,2020,CTS
+Hungary *,Europe,Eastern Europe,0.8,80,2020,CTS
+Iceland,Europe,Northern Europe,1.5,5,2020,CTS
+India *,Asia,Southern Asia,3.0,"40,651",2020,CTS
+Indonesia *,Asia,South-Eastern Asia,0.4,"1,150",2017,CTS
+Iran *,Asia,Southern Asia,2.5,"1,936",2014,MD
+Iraq,Asia,Western Asia,10.1,"3,339",2013,CTS
+Iraq (excluding Kurdistan),Asia,Western Asia,10.1,"3,029",2014,CTS
+Ireland,Europe,Northern Europe,0.7,34,2020,CTS
+Isle of Man,Europe,Northern Europe,0,0,2016,NP
+Israel *,Asia,Western Asia,1.5,123,2017,NSO
+Italy *,Europe,Southern Europe,0.5,285,2020,CTS
+Jamaica *,Americas,Caribbean,44.7,"1,323",2020,CTS
+Japan *,Asia,Eastern Asia,0.3,334,2018,MoI
+Jordan,Asia,Western Asia,1.0,99,2020,CTS
+Kazakhstan,Asia,Central Asia,3.2,606,2020,CTS
+Kenya *,Africa,Eastern Africa,4.0,"2,151",2020,CTS
+Kosovo *,Europe,Southern Europe,2.4,44,2018,CTS
+Kurdistan Region (Iraq),Asia,Western Asia,2.2,111,2013,CTS
+Kuwait *,Asia,Western Asia,1.8,61,2012,CTS
+Kyrgyzstan,Asia,Central Asia,2.2,138,2018,CTS
+Latvia *,Europe,Northern Europe,2.6,49,2020,CTS
+Lebanon,Asia,Western Asia,1.9,128,2020,CTS
+Lesotho *,Africa,Southern Africa,43.6,897,2015,NSO
+Liberia *,Africa,Western Africa,3.3,135,2012,UNMIL
+Liechtenstein,Europe,Western Europe,2.6,1,2018,NSO
+Lithuania,Europe,Northern Europe,3.7,101,2020,CTS
+Luxembourg,Europe,Western Europe,0.2,1,2020,CTS
+Macau *,Asia,Eastern Asia,0.3,2,2020,CTS
+Malawi,Africa,Eastern Africa,1.8,279,2012,NP
+Malaysia *,Asia,South-Eastern Asia,2.1,627,2013,NP
+Maldives *,Asia,Southern Asia,0.7,3,2013,CTS
+Malta,Europe,Southern Europe,1.6,7,2020,CTS
+Martinique,Americas,Caribbean,2.8,11,2009,NP
+Mauritius *,Africa,Eastern Africa,2.9,37,2018,NSO
+Mayotte,Africa,Eastern Africa,5.9,12,2009,NP
+Mexico *,Americas,Central America,28.4,"36,579",2020,CTS
+Monaco,Europe,Western Europe,0,0,2015,CTS
+Mongolia,Asia,Eastern Asia,6.0,196,2020,CTS
+Montenegro *,Europe,Southern Europe,2.9,18,2020,CTS
+Montserrat,Americas,Caribbean,20.3,1,2012,MD
+Morocco,Africa,Northern Africa,1.3,487,2020,CTS
+Mozambique,Africa,Eastern Africa,3.5,849,2011,SDG
+Myanmar *,Asia,South-Eastern Asia,2.3,"1,198",2016,CTS
+Namibia *,Africa,Southern Africa,11.9,303,2020,CTS
+Nepal *,Asia,Southern Asia,2.3,627,2016,CTS
+Netherlands,Europe,Western Europe,0.6,107,2020,CTS
+New Zealand *,Oceania,"Australia, New Zealand",2.6,126,2019,CTS
+Nicaragua,Americas,Central America,7.2,453,2016,NP
+Niger,Africa,Western Africa,4.4,788,2012,WHO
+Nigeria *,Africa,Western Africa,34.5,"64,201",2016,UNODC Estimate
+Northern Ireland *,Europe,Northern Europe,1.2,23,2018,CTS
+Norway *,Europe,Northern Europe,0.6,31,2020,CTS
+Oman *,Asia,Western Asia,0.3,13,2018,CTS
+Pakistan *,Asia,Southern Asia,3.9,"8,241",2018,NP
+Panama *,Americas,Central America,11.1,480,2020,CTS
+Paraguay *,Americas,South America,6.7,481,2020,CTS
+Peru *,Americas,South America,7.9,"2,487",2017,CTS
+Philippines *,Asia,South-Eastern Asia,4.4,"4,764",2019,CTS
+Poland *,Europe,Eastern Europe,0.7,268,2020,CTS
+Portugal *,Europe,Southern Europe,0.9,93,2020,CTS
+Puerto Rico *,Americas,Caribbean,18.5,529,2020,CTS
+Qatar *,Asia,Western Asia,0.4,9,2014,MD
+South Korea *,Asia,Eastern Asia,0.6,308,2020,CTS
+Moldova *,Europe,Eastern Europe,4.1,166,2018,NSO
+North Macedonia,Europe,Southern Europe,1.2,25,2018,CTS
+Réunion,Africa,Eastern Africa,1.8,15,2009,NP
+Romania *,Europe,Eastern Europe,1.5,281,2020,CTS
+Russia *,Europe,Eastern Europe,7.3,"10,697",2020,CTS
+Rwanda,Africa,Eastern Africa,2.6,293,2015,NSO
+Saint Helena,Africa,Western Africa,0,0,2009,NSO
+Saint Kitts and Nevis *,Americas,Caribbean,36.1,18,2012,OAS
+Saint Lucia *,Americas,Caribbean,21.4,39,2018,NSO
+Saint Martin (French part),Americas,Caribbean,27.7,10,2016,GOV
+Saint Pierre and Miquelon,Americas,Northern America,15.8,1,2009,NP
+Saint Vincent and the Grenadines,Americas,Caribbean,36.5,40,2016,CTS
+San Marino,Europe,Southern Europe,0,0,2011,WHO
+São Tomé and Príncipe,Africa,Middle Africa,3.3,6,2011,CTS
+Saudi Arabia *,Asia,Western Asia,1.3,419,2017,CTS
+Scotland *,Europe,Northern Europe,1.1,61,2018,CTS
+Senegal,Africa,Western Africa,0.3,39,2015,CTS
+Serbia *,Europe,Southern Europe,1.0,89,2020,CTS
+Seychelles,Africa,Eastern Africa,12.5,12,2016,NSO
+Sierra Leone,Africa,Western Africa,1.7,124,2015,SDG
+Singapore *,Asia,South-Eastern Asia,0.2,10,2020,CTS
+Slovakia *,Europe,Eastern Europe,1.2,63,2020,CTS
+Slovenia *,Europe,Southern Europe,0.5,11,2020,CTS
+South Africa *,Africa,Southern Africa,33.5,"19,846",2020,CTS
+South Sudan,Africa,Eastern Africa,14.9,"1,504",2012,NP
+Spain *,Europe,Southern Europe,0.6,298,2020,CTS
+Sri Lanka *,Asia,Southern Asia,2.4,514,2018,CTS
+Palestine *,Asia,Western Asia,1.0,48,2020,CTS
+Sudan,Africa,Northern Africa,5.1,"1,702",2008,CTS
+Suriname *,Americas,South America,5.4,31,2017,CTS
+Sweden *,Europe,Northern Europe,1.2,124,2020,CTS
+Switzerland *,Europe,Western Europe,0.5,47,2020,CTS
+Syria,Asia,Western Asia,0.9,149,2018,CTS
+Taiwan *,Asia,Eastern Asia,0.8,192,2015,SDG
+Tajikistan,Asia,Central Asia,0.9,87,2020,CTS
+Thailand *,Asia,South-Eastern Asia,2.6,"1,787",2017,CTS
+East Timor,Asia,South-Eastern Asia,4.1,49,2015,NSO
+Trinidad and Tobago *,Americas,Caribbean,30.6,420,2015,CTS
+Tunisia,Africa,Northern Africa,4.8,562,2020,WHO
+Turkey *,Asia,Western Asia,2.5,"2,095",2020,CTS
+Turkmenistan,Asia,Central Asia,4.2,203,2006,TransMonEE
+Turks and Caicos Islands,Americas,Caribbean,5.7,2,2014,MD
+Uganda *,Africa,Eastern Africa,9.7,"4,460",2020,CTS
+Ukraine *,Europe,Eastern Europe,6.2,"2,751",2017,CTS
+United Arab Emirates *,Asia,Western Asia,0.5,44,2017,CTS
+United Kingdom *,Europe,Northern Europe,1.12,755,2018,MD EUR SDG
+Tanzania,Africa,Eastern Africa,6.5,"3,439",2016,NSO
+United States *,Americas,Northern America,6.52,"21,570",2020,NP UNSDC CTS GSH
+U.S. Virgin Islands,Americas,Caribbean,49.3,52,2012,MD
+Uruguay,Americas,South America,12.1,416,2018,CTS
+Uzbekistan,Asia,Central Asia,1.1,363,2017,CTS
+Venezuela *,Americas,South America,36.7,"10,598",2018,CTS
+Vietnam *,Asia,South-Eastern Asia,1.5,"1,358",2011,WHO
+Yemen *,Asia,Western Asia,6.8,"1,703",2013,NSO
+Zambia,Africa,Eastern Africa,5.4,853,2015,NP
+Zimbabwe *,Africa,Eastern Africa,7.5,981,2012,WHO
