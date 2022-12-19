@@ -1,0 +1,181 @@
+Rank,Country,Score,Change
+1,Hong Kong,90.2,0
+2,Singapore,89.4,0.6
+3,New Zealand,84.4,0.2
+4,Switzerland,81.9,0.2
+5,Australia,80.9,0
+6,Ireland,80.5,0.1
+7,United Kingdom,78.9,0.9
+8,Canada,77.7,0
+9,United Arab Emirates,77.1,0
+10,Taiwan,77.3,0.7
+11,Iceland,77.1,0.1
+12,United States,76.8,1.1
+13,Netherlands,76.8,0.6
+14,Denmark,76.7,0.1
+15,Estonia,76.6,2.2
+16,Georgia,75.9,0.3
+17,Luxembourg,75.9,0.5
+18,Chile,75.4,0.2
+19,Sweden,75.2,1.1
+20,Finland,74.9,0.8
+21,Lithuania,74.2,1.1
+22,Malaysia,74,0.5
+23,Czech Republic,73.7,0.5
+24,Germany,73.5,0.7
+25,Mauritius,73,2.1
+26,Norway,73,1.3
+27,Israel,72.8,0.6
+28,Qatar,72.6,0
+29,South Korea,72.3,1.5
+30,Japan,72.1,0.2
+31,Austria,72,0.2
+32,Rwanda,71.1,2
+33,North Macedonia,71.1,0.2
+34,Macau,71,0.1
+35,Latvia,70.4,3.2
+36,Botswana,69.5,0.4
+37,Bulgaria,69,0.7
+38,Saint Lucia,68.7,1.1
+39,Jamaica,68.6,0.5
+40,Uruguay,68.6,0.6
+41,Malta,68.6,0.1
+42,Romania,68.6,0.8
+43,Thailand,68.3,1.2
+44,Cyprus,68.1,0.3
+45,Peru,67.8,0.9
+46,Poland,67.8,0.7
+47,Armenia,67.7,1
+48,Belgium,67.3,0.2
+49,Colombia,67.3,1.6
+50,Panama,67.2,0.2
+51,Kosovo,67,0.4
+52,Albania,66.5,2
+53,Jordan,66.5,1.6
+54,Bahrain,66.4,1.3
+55,Saint Vincent and the Grenadines,65.8,1.9
+56,Indonesia,65.8,1.6
+57,Spain,65.7,0.6
+58,Slovenia,65.5,0.7
+59,Kazakhstan,65.4,3.7
+60,Azerbaijan,65.4,1.1
+61,Costa Rica,65.3,0.3
+62,Portugal,65.3,1.9
+63,Brunei Darussalam,65.1,0.9
+64,Hungary,65,1.7
+65,Slovakia,65,0.3
+66,Mexico,64.7,0.1
+67,Barbados,64.7,7.7
+68,Turkey,64.6,0.8
+69,Serbia,63.9,1.4
+70,Philippines,63.8,1.2
+71,France,63.8,0.1
+72,Dominica,63.6,0.9
+73,Cabo Verde,63.1,3.1
+74,Bhutan,62.9,1.1
+75,Morocco,62.9,1
+76,The Bahamas,62.9,0.4
+77,Guatemala,62.6,0.8
+78,Côte d'Ivoire,62.4,0.4
+79,Kyrgyz Republic,62.3,0.5
+80,Italy,62.2,0.3
+81,Fiji,62.2,0.2
+82,Samoa,62.2,0.7
+83,Bosnia and Herzegovina,61.9,0.5
+84,El Salvador,61.8,1.4
+85,Paraguay,61.8,0.3
+86,Croatia,61.4,0.4
+87,Seychelles,61.4,0.2
+88,Oman,61,0
+89,Dominican Republic,61,0.6
+90,Kuwait,60.8,1.4
+91,Saudi Arabia,60.7,1.1
+92,Montenegro,60.5,3.8
+93,Honduras,60.2,0.4
+94,Tanzania,60.2,0.3
+95,Uganda,59.7,2.3
+96,Burkina Faso,59.4,0.6
+97,Moldova,59.1,0.7
+98,Russia,58.9,0.7
+99,Namibia,58.7,0.2
+100,China,58.4,0.6
+101,Papua New Guinea,58.4,2.7
+102,South Africa,58.3,4.7
+103,Mali,58.1,0.5
+104,Belarus,57.9,0.2
+105,Cambodia,57.8,0.9
+106,Greece,57.7,0.4
+107,Nicaragua,57.7,1.2
+108,Tonga,57.7,5.4
+109,Ghana,57.5,1.5
+110,Laos,57.4,3.8
+111,Nigeria,57.3,1.2
+112,Trinidad and Tobago,57,0.7
+113,Guyana,56.8,1.9
+114,Madagascar,56.6,0.2
+115,Sri Lanka,56.4,1.4
+116,Vanuatu,56.4,13.1
+117,Senegal,56.3,0.6
+118,Gabon,56.3,1.7
+119,Mauritania,55.7,1.7
+120,Guinea,55.7,3.5
+121,Bangladesh,55.6,0.5
+122,Tajikistan,55.6,2.7
+123,Belize,55.4,1.7
+124,Comoros,55.4,0.8
+125,Tunisia,55.4,3.5
+126,Mongolia,55.4,0.3
+127,Benin,55.3,1.4
+128,Vietnam,55.3,2.2
+129,India,55.2,0.7
+130,Kenya,55.1,0.4
+131,Pakistan,55,0.6
+132,Eswatini,54.7,1.2
+133,Solomon Islands,54.6,2.9
+134,São Tomé and Príncipe,54,0.4
+135,Guinea-Bissau,54,2.9
+136,Nepal,53.8,0.3
+137,Ethiopia,53.6,0.8
+138,Zambia,53.6,0.7
+139,Myanmar,53.6,0.3
+140,Uzbekistan,53.3,1.8
+141,Maldives,53.2,2.1
+142,Lesotho,53.1,0.8
+143,Haiti,52.7,3.1
+144,Egypt,52.5,0.9
+145,Cameroon,52.4,0.5
+146,The Gambia,52.4,0.1
+147,Ukraine,52.3,0.4
+148,Argentina,52.2,0.1
+149,Micronesia,51.9,0.4
+150,Brazil,51.9,0.5
+151,Niger,51.6,2.1
+152,Afghanistan,51.5,0.2
+153,Malawi,51.4,0.6
+154,Lebanon,51.1,2.1
+155,Iran,51.1,0.2
+156,Angola,50.6,2
+157,Democratic Republic of Congo,50.3,1.8
+158,Togo,50.3,2.5
+159,Chad,49.9,0.6
+160,Liberia,49.7,1.2
+161,Central African Republic,49.1,0.1
+162,Burundi,48.9,2
+163,Mozambique,48.6,2.3
+164,Turkmenistan,48.4,1.3
+165,Suriname,48.1,0
+166,Sudan,47.7,1.7
+167,Sierra Leone,47.5,4.3
+168,Kiribati,47.3,3.5
+169,Djibouti,47.1,2
+170,Ecuador,46.9,1.6
+171,Algeria,46.2,1.5
+172,Timor-Leste,44.2,3.9
+173,Bolivia,42.3,1.8
+174,Equatorial Guinea,41,1
+175,Zimbabwe,40.4,3.6
+176,Republic of Congo,39.7,0.8
+177,Eritrea,38.9,2.8
+178,Cuba,27.8,4.1
+179,Venezuela,25.9,0.7
+180,North Korea,5.9,0.1

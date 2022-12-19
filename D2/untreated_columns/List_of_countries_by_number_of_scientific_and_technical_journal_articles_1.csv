@@ -1,0 +1,231 @@
+Rank,Country,Number of scientific publications (2020),Scientific publications per capita (in ppm)
+1,China,744042,527
+2,United States,624554,1875
+3,United Kingdom,198500,2959
+4,India,191590,138
+5,Germany,174524,2097
+6,Italy,127502,2159
+7,Japan,127408,1016
+8,Canada,121111,3184
+9,Russia,119195,819
+10,France,112838,1664
+11,Australia,106614,4109
+12,Spain,104353,2202
+13,South Korea,91030,1762
+14,Brazil,89241,416
+15,Iran,71894,863
+16,Netherlands,62512,3534
+17,Turkey,53802,635
+18,Poland,51994,1364
+19,Indonesia,49160,181
+20,Switzerland,47607,5461
+21,Sweden,43270,4141
+22,Taiwan,39201,1677
+23,Malaysia,37099,1135
+24,Saudi Arabia,36301,1037
+25,Belgium,34575,2976
+26,Egypt,34575,298
+27,Denmark,29982,5110
+28,Portugal,29189,2821
+29,Mexico,29089,231
+30,Pakistan,28525,127
+31,South Africa,28365,472
+32,Austria,27324,3044
+33,Norway,25204,4654
+34,Czech Republic,24811,2358
+35,Hong Kong,24203,3273
+36,Singapore,23078,4232
+37,Israel,22743,2402
+38,Finland,21789,3948
+39,Thailand,20830,312
+40,Greece,20123,1884
+41,Iraq,18711,454
+42,Ukraine,17888,434
+43,Vietnam,17485,177
+44,Chile,17137,871
+45,New Zealand,16886,3286
+46,Ireland,16581,3309
+47,Argentina,15605,341
+48,Romania,15537,810
+49,Colombia,15103,296
+50,Nigeria,13282,63
+51,Hungary,12168,1250
+52,United Arab Emirates,10079,1061
+53,Morocco,9463,259
+54,Slovakia,8709,1597
+55,Tunisia,8338,710
+56,Bangladesh,8265,48
+57,Algeria,7968,176
+58,Serbia,7960,1158
+59,Croatia,7814,2010
+60,Slovenia,6808,3228
+61,Jordan,6540,587
+62,Bulgaria,6233,956
+63,Ethiopia,6141,52
+64,Philippines,5636,51
+65,Ecuador,5519,308
+66,Peru,5425,164
+67,Kazakhstan,5339,279
+68,Qatar,5081,1815
+69,Lithuania,4658,1667
+70,Lebanon,4249,628
+71,Ghana,4189,136
+72,Kenya,4110,86
+73,Estonia,3810,2865
+74,Cyprus,3629,4087
+75,Uzbekistan,3491,99
+76,Sri Lanka,2844,128
+77,Nepal,2555,84
+78,Macau,2549,3736
+79,Belarus,2547,272
+80,Oman,2543,562
+81,Latvia,2530,1349
+82,Kuwait,2345,502
+83,Uganda,2259,53
+84,Luxembourg,2256,3554
+85,Tanzania,2199,37
+86,Cuba,2088,187
+87,Cameroon,2086,86
+88,Georgia,1905,511
+89,Uruguay,1902,535
+90,Azerbaijan,1764,174
+91,Iceland,1738,4622
+92,Bosnia and Herzegovina,1574,474
+93,Costa Rica,1438,279
+94,Venezuela,1397,49
+95,Palestine,1204,230
+96,Sudan,1187,27
+97,Armenia,1175,396
+98,Zimbabwe,1116,71
+99,Bahrain,1066,710
+100,Yemen,1064,35
+101,Malta,1016,1974
+102,North Macedonia,990,540
+103,Myanmar,974,18
+104,Malawi,952,50
+105,Senegal,938,54
+106,Puerto Rico,872,265
+107,Zambia,802,44
+108,Botswana,800,332
+109,Panama,777,182
+110,Syria,734,40
+111,Rwanda,715,55
+112,Brunei,681,1584
+113,Libya,674,97
+114,Mongolia,662,194
+115,Burkina Faso,651,30
+116,Benin,625,50
+116,Montenegro,625,1006
+118,Ivory Coast,615,23
+119,Albania,612,216
+119,Mozambique,612,20
+121,Moldova,549,211
+122,Cambodia,529,34
+123,Namibia,524,205
+124,Kyrgyzstan,507,76
+125,Jamaica,478,175
+126,Fiji,469,522
+127,Bolivia,454,38
+128,Mauritius,451,356
+129,Democratic Republic of the Congo,439,5
+130,Trinidad and Tobago,437,320
+131,Madagascar,413,15
+132,Paraguay,407,55
+133,Guatemala,403,24
+134,Republic of the Congo,386,68
+135,Dominican Republic,346,33
+136,Honduras,345,37
+137,Mali,325,16
+138,Tajikistan,324,34
+139,Laos,305,42
+140,Afghanistan,286,9
+141,Grenada,250,2212
+142,North Korea,237,9
+143,Monaco,232,6050
+143,Papua New Guinea,232,25
+145,Gambia,230,92
+146,Togo,220,28
+147,Sierra Leone,211,25
+148,Niger,204,8
+149,Bhutan,200,265
+150,Gabon,189,85
+151,New Caledonia,185,676
+151,French Polynesia,168,600
+153,Barbados,156,542
+154,Eswatini,147,125
+155,Angola,146,5
+156,Nicaragua,141,21
+157,Guinea,138,11
+158,French Guiana,130,442
+159,Haiti,127,11
+160,Liechtenstein,125,3193
+161,Saint Kitts and Nevis,121,2241
+162,Greenland,116,2048
+163,Burundi,115,9
+164,Seychelles,111,1119
+165,El Salvador,107,16
+166,Lesotho,99,46
+167,Somalia,92,6
+168,Maldives,91,238
+169,Mauritania,86,20
+169,Bahamas,86,219
+171,Bermuda,78,1218
+172,Guam,76,494
+173,Guadeloupe,75,187
+174,Faroe Islands,74,1378
+175,Eritrea,72,20
+176,Samoa,70,350
+177,Central African Republic,69,12
+177,Liberia,69,15
+179,Guyana,68,91
+180,Cape Verde,67,119
+181,Chad,66,4
+182,Solomon Islands,62,85
+183,Suriname,60,100
+184,Martinique,58,155
+185,Guinea-Bissau,57,35
+185,Réunion,57,66
+187,Vanuatu,52,173
+188,San Marino,50,1484
+189,Belize,49,114
+190,Timor-Leste,41,31
+191,South Sudan,40,3
+192,Andorra,36,453
+193,Djibouti,35,36
+194,Saint Vincent and the Grenadines,31,280
+195,Federated States of Micronesia,30,284
+195,Tonga,30,301
+197,Cayman Islands,27,410
+198,Antigua and Barbuda,23,232
+199,Aruba,22,198
+200,Dominica,21,292
+200,Palau,21,1169
+202,Falkland Islands,20,5000
+203,Comoros,18,24
+204,Kiribati,17,141
+205,Turkmenistan,15,2
+206,Equatorial Guinea,14,9
+206,Saint Lucia,14,78
+206,American Samoa,14,282
+209,Mayotte,13,43
+209,United States Virgin Islands,13,149
+209,Anguilla,13,867
+212,Gibraltar,12,353
+213,Northern Mariana Islands,11,232
+213,Turks and Caicos Islands,11,247
+215,São Tomé and Príncipe,9,42
+216,Cook Islands,8,521
+217,Marshall Islands,7,128
+218,British Virgin Islands,6,200
+219,Vatican City,5,6061
+220,"Saint Helena, Ascension and Tristan da Cunha",4,667
+220,Montserrat,4,800
+222,Wallis and Futuna,3,264
+222,British Indian Ocean Territory,3,1000
+222,Nauru,3,254
+222,Svalbard and Jan Mayen,3,1021
+226,Tuvalu,2,187
+227,Saint Pierre and Miquelon,1,167
+227,Tokelau,1,666
+227,French Southern and Antarctic Lands,1,2500
+,World,4236262,

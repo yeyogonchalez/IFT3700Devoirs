@@ -14,7 +14,7 @@ def intervalMedian(x):
     return median_val
 
 # Replace 'FILE_NAME' with the name of the CSV file you want to read
-file_name = 'D2/untreated_columns/List_of_countries_by_suicide_rate_1.csv'
+file_name = 'D2/untreated_columns/List_of_countries_by_food_energy_intake_1.csv'
 
 # Read the CSV file into a Pandas DataFrame, specifying that the values are surrounded by single quotes
 df = pd.read_csv(file_name)
@@ -25,7 +25,7 @@ df = df.applymap(lambda x: x.replace(',', '') if isinstance(x, str) else x)
 # Remove the apostrophes from the values in the DataFrame
 df = df.applymap(lambda x: str(x).strip('"'))
 
-titles=df.iloc[:,0]
+titles=df.iloc[:,1]
 
 # Print the column names and ask the user which ones they want to include in the median calculation
 print('Column names:')
