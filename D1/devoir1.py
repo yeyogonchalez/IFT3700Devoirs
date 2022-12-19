@@ -101,6 +101,12 @@ def adult_dissimilarity(x, y, avg, std):
   return num_dissimilarity + cat_dissimilarity
 
 def adult_dissimilarity_matrix(X, Y, D, recompute):
+  #on assume que le test_set sera toujours plus petit que le train_set
+  if len(X) == len(Y):
+    file_name = 'train_diss_matrix.npy'
+  else:
+    file_name = 'test_diss_matrix.npy'
+  
   if recompute:
     diss_matrix = np.zeros(shape=(len(X),len(Y)))
     avg = numeric_distance_avg(D)
@@ -108,9 +114,9 @@ def adult_dissimilarity_matrix(X, Y, D, recompute):
     for i in range(len(X)):
       for j in range(len(Y)):
         diss_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
-    np.save('diss_matrix.npy', diss_matrix)
+    np.save(file_name, diss_matrix)
   else:
-    diss_matrix = np.load('diss_matrix.npy')
+    diss_matrix = np.load(file_name)
   return diss_matrix
 
 
@@ -131,8 +137,8 @@ def numeric_distance_std(X):
 ##                                          INIT
 dp = DataParser("D1/adult.csv")
 train_set, test_set = dp.splitData(1000)
-train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features())
-test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features())
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=True)
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=True)
 
 
 ##                                          ISOMAP, MISSING PROPER ANALYSIS
