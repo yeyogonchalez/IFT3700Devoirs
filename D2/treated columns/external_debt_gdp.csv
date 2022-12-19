@@ -1,7 +1,7 @@
-Country,% GDP
-United States,96.06
+Country,gdp_debt
 United Kingdom,273.06
 France,253.35
+United States,96.06
 Germany,160.35
 Japan,101.41
 China,14.39
@@ -203,7 +203,7 @@ Nauru,22.0
 British Virgin Islands (UK),2.0
 Tuvalu (Tuvalu),37.0
 Kiribati,8.0
-Anguilla (UK),5.0
+Anguilla,5.0
 Wallis and Futuna (France),6.0
 Montserrat (UK),2.0
 Liechtenstein,0.0

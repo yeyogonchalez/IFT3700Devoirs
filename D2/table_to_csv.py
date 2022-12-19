@@ -14,7 +14,7 @@ def intervalMedian(x):
     return median_val
 
 # Replace 'FILE_NAME' with the name of the CSV file you want to read
-file_name = 'D2/untreated_columns/List_of_countries_by_food_energy_intake_1.csv'
+file_name = 'D2/untreated_columns/List_of_sovereign_states_by_Internet_connection_speeds_1.csv'
 
 # Read the CSV file into a Pandas DataFrame, specifying that the values are surrounded by single quotes
 df = pd.read_csv(file_name)

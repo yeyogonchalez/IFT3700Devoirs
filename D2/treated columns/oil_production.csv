@@ -1,43 +1,43 @@
 Country,Oil production per capita2021 (bbl/day/million people)
 United States,33556.0
 Russia,69689.0
-Saudi Arabia (OPEC),265991.0
+Saudi Arabia,265991.0
 Canada,114275.0
-Iraq (OPEC),99172.0
+Iraq,99172.0
 China,2823.0
-United Arab Emirates (OPEC),333062.0
+United Arab Emirates,333062.0
 Brazil,13484.0
-Iran (OPEC),29617.0
-Kuwait (OPEC),541020.0
+Iran,29617.0
+Kuwait,541020.0
 Norway,324349.0
 Kazakhstan,91149.0
 Mexico,13494.0
-Nigeria (OPEC),7051.0
+Nigeria,7051.0
 Qatar,465768.0
-Libya (OPEC),181710.0
-Algeria (OPEC),24959.0
-Angola (OPEC),34076.0
+Libya,181710.0
+Algeria,24959.0
+Angola,34076.0
 Oman,214450.0
 United Kingdom,12083.0
 Colombia,14424.0
 Azerbaijan,69648.0
 Indonesia,2389.0
 India,438.0
-Venezuela (OPEC),21016.0
+Venezuela,21016.0
 Egypt,5387.0
 Malaysia,15604.0
 Argentina,10720.0
 Ecuador,26108.0
 Australia,12860.0
-Republic of the Congo (OPEC),44535.0
+Republic of the Congo,44535.0
 Turkmenistan,28905.0
 Vietnam,1849.0
 Ghana,5835.0
 Thailand,2647.0
-Gabon (OPEC),78388.0
+Gabon,78388.0
 Bahrain,116433.0
 South Sudan,11858.0
-Equatorial Guinea (OPEC),88081.0
+Equatorial Guinea,88081.0
 Guyana,148118.0
 Italy,1701.0
 Brunei,228321.0
@@ -96,4 +96,3 @@ Spain,3.0
 Slovakia,17.0
 Israel,3.0
 Morocco,1.0
-
