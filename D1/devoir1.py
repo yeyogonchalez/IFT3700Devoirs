@@ -13,11 +13,14 @@ from sklearn.neighbors import KNeighborsClassifier #k-plus proches voisins
 from sklearn.cluster import AgglomerativeClustering #Regroupement hiérarchique (Paritionnement binaire)
 from pyclustering.cluster.kmedoids import kmedoids
 from pyclustering.cluster.silhouette import silhouette
-#from sklearn.extra.cluster import KMedoids
+from sklearn.metrics import silhouette_score
+from sklearn_extra.cluster import KMedoids
 
 #réduction de dimensionnalité
 from sklearn.decomposition import KernelPCA #ce n'est pas PCoA mais on peut l'utiliser pour que le résultat soit le même
 from sklearn.manifold import Isomap
+
+import time
 
 
 ##-------------------------------------------ADULT----------------------------------------------------------#
@@ -99,15 +102,25 @@ def adult_dissimilarity(x, y, avg, std):
   cat_dissimilarity = weight * n_different_feats
   return num_dissimilarity + cat_dissimilarity
 
-def adult_dissimilarity_matrix(X, Y, D):
-    dis_matrix = np.zeros(shape=(len(X),len(Y)))
+def adult_dissimilarity_matrix(X, Y, D, recompute):
+  #on assume que le test_set sera toujours plus petit que le train_set
+  if len(X) == len(Y):
+    file_name = 'train_diss_matrix.npy'
+  else:
+    file_name = 'test_diss_matrix.npy'
+  
+  if recompute:
+    diss_matrix = np.zeros(shape=(len(X),len(Y)))
     avg = numeric_distance_avg(D)
     std = numeric_distance_std(D)
     for i in range(len(X)):
       for j in range(len(Y)):
-        dis_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
+        diss_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
+    np.save(file_name, diss_matrix)
+  else:
+    diss_matrix = np.load(file_name)
+  return diss_matrix
 
-    return dis_matrix
 
 def numeric_distance_avg(X):
   numeric_feats_x = X[:, [0,4,10,11,12]].astype(float)
@@ -126,8 +139,11 @@ def numeric_distance_std(X):
 ##                                          INIT
 dp = DataParser("D1/adult.csv")
 train_set, test_set = dp.splitData(1000)
-train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features())
-test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features())
+start = time.time()
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=True)
+end = time.time()
+print(end-start , " seconds elapsed")
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=True)
 
 
 ##                                          ISOMAP, MISSING PROPER ANALYSIS
@@ -153,21 +169,28 @@ test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_
 # pcoa_infinity = pcoa.transform(-.5*test_set_dissimilarity**2) 
 
 
-##                                          K-MEDOIDS
-initial_medoids = [0,1,2,3]
-kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
-kmedoids_instance.process() #training
-clusters = kmedoids_instance.get_clusters()
+# ##                                          K-MEDOIDS
+# initial_medoids = [0,1,2,3]
+# kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
+# kmedoids_instance.process() #training
+# clusters = kmedoids_instance.get_clusters()
 
-kmedoids_train = kmedoids_instance.predict(train_set_dissimilarity)
-kmedoids_test = kmedoids_instance.predict(test_set_dissimilarity)
+# #ANALYSE
+# def compute_silhouette_score(dissimilarity_matrix, clusters):
+#     scores = []
+#     for i, cluster in enumerate(clusters):
+#         a = np.mean([dissimilarity_matrix[i][j] for j in cluster])
+        
+#         b = np.min([np.mean([dissimilarity_matrix[i][j] for j in clusters[k]]) for k in range(len(clusters)) if k != i])
+        
+#         score = (b - a) / max(a, b)
+#         scores.append(score)
+#     return np.mean(scores)
 
+# train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, clusters)
+# test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, clusters)
+# print(silhouette_score)
 
-
-#silhouette score
-silhouette_train_score = silhouette(kmedoids_train, clusters, data_type='distance_matrix').process().get_score()
-silhouette_test_score = silhouette(kmedoids_train, clusters, data_type='distance_matrix').process().get_score()
-a=1
 
 # ##                                           REGROUPEMENT HIÉRARCHIQUE 
 # def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
@@ -185,7 +208,7 @@ a=1
 
 
 
-# quadrants = 1
+# ##                                           KNN 
 # knn = KNeighborsClassifier(n_neighbors=2, metric='precomputed', algorithm='brute')
 # knn.fit(train_set_dissimilarity, quadrants)
 
