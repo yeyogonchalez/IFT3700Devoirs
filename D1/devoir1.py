@@ -12,7 +12,8 @@ from sklearn.neighbors import KNeighborsClassifier #k-plus proches voisins
 #Partitionnement
 from sklearn.cluster import AgglomerativeClustering #Regroupement hiérarchique (Paritionnement binaire)
 from pyclustering.cluster.kmedoids import kmedoids
-from sklearn_extra.cluster import KMedoids
+from pyclustering.cluster.silhouette import silhouette
+#from sklearn.extra.cluster import KMedoids
 
 #réduction de dimensionnalité
 from sklearn.decomposition import KernelPCA #ce n'est pas PCoA mais on peut l'utiliser pour que le résultat soit le même
@@ -129,19 +130,21 @@ train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.ge
 test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features())
 
 
-##                                          ISOMAP
-isomap = Isomap(n_components=1, n_neighbors=2, metric='precomputed')
-isomap_train = isomap.fit_transform(train_set_dissimilarity)
-isomap_test = isomap.transform(test_set_dissimilarity)
+##                                          ISOMAP, MISSING PROPER ANALYSIS
+# isomap = Isomap(n_components=1, metric='precomputed')
+# isomap_train = isomap.fit_transform(train_set_dissimilarity)
+# isomap_test = isomap.transform(test_set_dissimilarity)
 
-fig = plt.figure(figsize=(12, 8))
-ax = fig.add_subplot(211)
-ax.set_title('Train Isomap')
-ax.scatter(isomap_circle, np.zeros_like(isomap_circle), c=theta);
+# fig = plt.figure(figsize=(12, 8))
+# ax = fig.add_subplot(211)
+# ax.set_title('Train Isomap')
+# ax.scatter(isomap_train, np.zeros_like(isomap_train))
 
-ax = fig.add_subplot(212)
-ax.set_title('Cosine Isomap sur infinity')
-ax.scatter(isomap_infinity, np.zeros_like(isomap_infinity), c=theta2);
+# ax = fig.add_subplot(212)
+# ax.set_title('Cosine Isomap sur infinity')
+# ax.scatter(isomap_test, np.zeros_like(isomap_test))
+
+
 
 
 # ##                                          PCOA
@@ -149,13 +152,22 @@ ax.scatter(isomap_infinity, np.zeros_like(isomap_infinity), c=theta2);
 # pcoa_circle = pcoa.fit_transform(-.5*train_set_dissimilarity**2)
 # pcoa_infinity = pcoa.transform(-.5*test_set_dissimilarity**2) 
 
-# ##                                          K-MEDOIDS
-# initial_medoids = [0,1,2]
-# kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
-# kmedoids_instance.process() #training
 
-# kmedoids_circle = kmedoids_instance.predict(train_set_dissimilarity)
-# kmedoids_infinity = kmedoids_instance.predict(test_set_dissimilarity)
+##                                          K-MEDOIDS
+initial_medoids = [0,1,2,3]
+kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
+kmedoids_instance.process() #training
+clusters = kmedoids_instance.get_clusters()
+
+kmedoids_train = kmedoids_instance.predict(train_set_dissimilarity)
+kmedoids_test = kmedoids_instance.predict(test_set_dissimilarity)
+
+
+
+#silhouette score
+silhouette_train_score = silhouette(kmedoids_train, clusters, data_type='distance_matrix').process().get_score()
+silhouette_test_score = silhouette(kmedoids_train, clusters, data_type='distance_matrix').process().get_score()
+a=1
 
 # ##                                           REGROUPEMENT HIÉRARCHIQUE 
 # def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
