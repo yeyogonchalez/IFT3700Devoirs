@@ -22,12 +22,9 @@ from sklearn.manifold import Isomap
 
 import time
 
-
-##-------------------------------------------ADULT----------------------------------------------------------#
+##-------------------------------------------SHARED----------------------------------------------------------#
 
 ##                                  DATASET DOWNLOAD AND CLEANUP
-
-
 class DataParser:
   def __init__(self,database: str):
     data_features_db = pd.read_csv(database).to_numpy()
@@ -56,6 +53,44 @@ class DataParser:
     test_x = test_x[np.random.choice(test_x.shape[0], np.floor(sample_size*0.2).astype(int), replace=False), :]
 
     return (training_x, test_x)
+
+##                                  CLUSTERING EVALUATION
+def compute_silhouette_score(dissimilarity_matrix, clusters):
+    scores = []
+    for i in range(len(dissimilarity_matrix)):
+        cluster = find_cluster(i, clusters)
+        a = np.mean([dissimilarity_matrix[i][j] for j in cluster])
+        inter2 = [np.mean([dissimilarity_matrix[i][j] for j in clusters[k]]) for k in range(len(clusters)) if k != i]
+        b = np.min(inter2)
+        score = (b - a) / max(a, b)
+        scores.append(score)
+    return np.mean(scores)
+
+def find_cluster(i, clusters):
+  for cluster in clusters:
+    if i in cluster:
+      return cluster
+
+def clusterize(list, n_clusters):
+  clusters = []
+  for i in range(n_clusters):
+    clusters.append([])
+  for j in range(len(list)):
+    clusters[list[j]].append(j)
+  return clusters
+    
+def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
+    average_dissimilarity = list()
+    for i in range(agglomerative_clustering.n_clusters):
+        ith_clusters_dissimilarity = dissimilarity_matrix[:, np.where(agglomerative_clustering.labels_==i)[0]]
+        average_dissimilarity.append(ith_clusters_dissimilarity.mean(axis=1))
+    return np.argmin(np.stack(average_dissimilarity), axis=0)
+
+def compute_error_rate(class_preds, true_classes):
+    error_num = np.sum(class_preds != true_classes)
+    return error_num / len(true_classes)
+##----------------------------------------------------------------------------------------------------------#
+##-------------------------------------------ADULT----------------------------------------------------------#
 
 
 
@@ -131,22 +166,17 @@ def numeric_distance_std(X):
   return np.std(numeric_feats_x, axis=0)
 
 
-
-
-
-
-
 ##                                          INIT
 dp = DataParser("D1/adult.csv")
 train_set, test_set = dp.splitData(1000)
 start = time.time()
-train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=True)
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=False)
 end = time.time()
 print(end-start , " seconds elapsed")
-test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=True)
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=False)
 
 
-##                                          ISOMAP, MISSING PROPER ANALYSIS
+# #                                          ISOMAP, MISSING PROPER ANALYSIS
 # isomap = Isomap(n_components=1, metric='precomputed')
 # isomap_train = isomap.fit_transform(train_set_dissimilarity)
 # isomap_test = isomap.transform(test_set_dissimilarity)
@@ -169,52 +199,47 @@ test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_
 # pcoa_infinity = pcoa.transform(-.5*test_set_dissimilarity**2) 
 
 
-# ##                                          K-MEDOIDS
-# initial_medoids = [0,1,2,3]
-# kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
-# kmedoids_instance.process() #training
-# clusters = kmedoids_instance.get_clusters()
-
-# #ANALYSE
-# def compute_silhouette_score(dissimilarity_matrix, clusters):
-#     scores = []
-#     for i, cluster in enumerate(clusters):
-#         a = np.mean([dissimilarity_matrix[i][j] for j in cluster])
-        
-#         b = np.min([np.mean([dissimilarity_matrix[i][j] for j in clusters[k]]) for k in range(len(clusters)) if k != i])
-        
-#         score = (b - a) / max(a, b)
-#         scores.append(score)
-#     return np.mean(scores)
-
-# train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, clusters)
-# test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, clusters)
-# print(silhouette_score)
-
-
-# ##                                           REGROUPEMENT HIÉRARCHIQUE 
-# def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_matrix):
-#     average_dissimilarity = list()
-#     for i in range(agglomerative_clustering.n_clusters):
-#         ith_clusters_dissimilarity = dissimilarity_matrix[:, np.where(agglomerative_clustering.labels_==i)[0]]
-#         average_dissimilarity.append(ith_clusters_dissimilarity.mean(axis=1))
-#     return np.argmin(np.stack(average_dissimilarity), axis=0)
-
-# agglomerative_clustering = AgglomerativeClustering(n_clusters=5, affinity='precomputed', linkage='average')
-# agglomerative_clustering.fit(train_set_dissimilarity)
-
-# agglo_circle = agglomerative_clustering_predict(agglomerative_clustering, train_set_dissimilarity)
-# agglo_infinity = agglomerative_clustering_predict(agglomerative_clustering, test_set_dissimilarity)
+##                                          K-MEDOIDS
+initial_medoids = [0,1,2,3]
+kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
+kmedoids_instance.process() #training
+clusters = kmedoids_instance.get_clusters()
+kmedoid_train_clusters = kmedoids_instance.predict(train_set_dissimilarity)
+kmedoid_train_clusters = clusterize(kmedoid_train_clusters, len(initial_medoids))
+kmedoid_test_clusters = kmedoids_instance.predict(test_set_dissimilarity)
+kmedoid_test_clusters = clusterize(kmedoid_test_clusters, len(initial_medoids))
 
 
 
-# ##                                           KNN 
-# knn = KNeighborsClassifier(n_neighbors=2, metric='precomputed', algorithm='brute')
-# knn.fit(train_set_dissimilarity, quadrants)
+#ANALYSE
+kmedoid_train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, kmedoid_train_clusters)
+kmedoid_test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, kmedoid_test_clusters)
 
-# knn_circle = knn.predict(train_set_dissimilarity)
-# knn_infinity = knn.predict(test_set_dissimilarity)
 
+##                                           REGROUPEMENT HIÉRARCHIQUE 
+agglomerative_clustering = AgglomerativeClustering(n_clusters=5, affinity='precomputed', linkage='average')
+agglomerative_clustering.fit(train_set_dissimilarity)
+
+agglo_train_clusters = agglomerative_clustering_predict(agglomerative_clustering, train_set_dissimilarity)
+agglo_train_clusters = clusterize(agglo_train_clusters, n_clusters=5)
+agglo_test_clusters = agglomerative_clustering_predict(agglomerative_clustering, test_set_dissimilarity)
+agglo_test_clusters = clusterize(agglo_test_clusters, n_clusters=5)
+agglo_train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, agglo_train_clusters)
+agglo_test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, agglo_test_clusters)
+
+
+
+##                                           KNN 
+knn = KNeighborsClassifier(n_neighbors=2, metric='precomputed', algorithm='brute')
+train_labels = train_set[:, 14]
+test_labels = test_set[:, 14]
+knn.fit(train_set_dissimilarity, train_set[:, 14])
+
+knn_train_predictions = knn.predict(train_set_dissimilarity)
+train_score = compute_error_rate(train_labels, knn_train_predictions)
+knn_test_predictions = knn.predict(test_set_dissimilarity)
+test_score = compute_error_rate(test_labels, knn_test_predictions)
+a=1
 ##----------------------------------------------------------------------------------------------------------#
 
 
