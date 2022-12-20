@@ -26,10 +26,16 @@ import time
 
 ##                                  DATASET DOWNLOAD AND CLEANUP
 class DataParser:
-  def __init__(self,database: str, recompute):
+  def __init__(self,database: str, recompute, data_id):
     data_features_db = pd.read_csv(database).to_numpy()
     self.data_features = np.delete(data_features_db,0,0)
     self.recompute = recompute
+    if data_id == "ADULT":
+      self.train_file_name = 'adult_train_set.npy'
+      self.test_file_name = 'adult_test_set.npy'
+    else:
+      self.train_file_name = 'mnist_train_set.npy'
+      self.test_file_name = 'mnist_test_set.npy'
 
   def get_features(self):
     return self.data_features
@@ -53,11 +59,11 @@ class DataParser:
       #échantillonage
       train_set = train_set[np.random.choice(train_set.shape[0], np.floor(sample_size*4/5).astype(int), replace=False), :]
       test_set = test_set[np.random.choice(test_set.shape[0], np.floor(sample_size*0.2).astype(int), replace=False), :]
-      np.save('adult_train_set.npy', train_set)
-      np.save('adult_test_set.npy', test_set)
+      np.save(self.train_file_name, train_set)
+      np.save(self.test_file_name, test_set)
     else:
-      train_set = np.load('adult_train_set.npy', allow_pickle=True)
-      test_set = np.load('adult_test_set.npy', allow_pickle=True)
+      train_set = np.load(self.train_file_name, allow_pickle=True)
+      test_set = np.load(self.test_file_name, allow_pickle=True)
 
     return (train_set, test_set)
 
@@ -80,8 +86,6 @@ def isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_
   isomap = Isomap(n_components = n_components, metric='precomputed')
   isomap_train = isomap.fit_transform(train_set_dissimilarity)
   isomap_test = isomap.transform(test_set_dissimilarity)
-  train_colors = np.where(train_labels == '<=50K', "red", "green")
-  test_colors = np.where(test_labels == '<=50K', "red", "green")
   visualize_2D(isomap_train, isomap_test, train_colors, test_colors)
 
 def pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors):
@@ -250,15 +254,15 @@ def numeric_distance_std(X):
 ##                                          INIT
 
 ##SUPER IMPORTANT PARAMETER:
-recompute = False
+adult_recompute = False
 ############################
-dp = DataParser("D1/adult.csv", recompute)
+dp = DataParser("D1/adult.csv", adult_recompute, data_id = "ADULT")
 train_set, test_set = dp.splitData(100)
 start = time.time()
-train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute)
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), adult_recompute)
 end = time.time()
 print(end-start , " seconds elapsed")
-test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute)
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), adult_recompute)
 n_components = 2
 k=2
 n_clusters = 2
@@ -274,15 +278,15 @@ isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colo
 ##                                          PCOA
 pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors)
 
-##                                          K-MEDOIDS
-k_medoids(train_set_dissimilarity, test_set_dissimilarity, k)
+# ##                                          K-MEDOIDS
+# k_medoids(train_set_dissimilarity, test_set_dissimilarity, k)
 
-##                                           REGROUPEMENT HIÉRARCHIQUE 
-agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters)
+# ##                                           REGROUPEMENT HIÉRARCHIQUE 
+# agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters)
 
 
-##                                           KNN 
-knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels)
+# ##                                           KNN 
+# knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels)
 
 ##----------------------------------------------------------------------------------------------------------#
 
@@ -298,7 +302,7 @@ knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, 
 #
 #  Returns the gradient matrix of W which is of size m*n
 
-def similarity(X, Y,alpha: float=0.5):
+def mnist_dissimilarity(X, Y,alpha: float=0.5):
   euclidean_distance = euclidean(X, Y)
   cosine_dist = cosine(X, Y)
   return alpha * euclidean_distance + (1 - alpha) * cosine_dist
@@ -307,20 +311,34 @@ def similarity(X, Y,alpha: float=0.5):
 #  points: size nxm Our points to compare 
 #
 #  return a matrix of n x n containing the combined similarity between each pair of points
-def dissimilarity_matrix(points):
-  n = points.shape[0]
-  diss_matrix = np.empty((n, n))
-  for i in range(n):
-    for j in range(n):
-      diss_matrix[i][j] = similarity(points[i], points[j])
-
+def mnist_dissimilarity_matrix(X, Y, recompute):
+  if len(X) == len(Y):
+    matrix_file_name = 'mnist_train_diss_matrix.npy'
+  else:
+    matrix_file_name = 'mnist_test_diss_matrix.npy'
+  
+  if recompute:
+    diss_matrix = np.zeros(shape=(len(X),len(Y)))
+    for i in range(len(X)):
+      for j in range(len(Y)):
+        diss_matrix[i,j] = mnist_dissimilarity(X[i], Y[j])
+    np.save(matrix_file_name, diss_matrix)
+  else:
+    diss_matrix = np.load(matrix_file_name)
   return diss_matrix
 
 ##                                          INIT
-dp = DataParser(database='D1/mnist.csv')
+
+##SUPER IMPORTANT PARAMETER
+mnist_recompute = False
+###########################
+dp = DataParser('D1/mnist.csv', mnist_recompute, data_id = "MNIST" )
 mnist_train, mnist_test = dp.splitData(1000)
-mnist_train_dissimilarity = dissimilarity_matrix(mnist_train)
-mnist_test_dissimilarity = dissimilarity_matrix(mnist_test)
+start = time.time()
+mnist_train_dissimilarity = mnist_dissimilarity_matrix(mnist_train, mnist_train, mnist_recompute)
+end = time.time()
+print(end-start, " seconds for matrix computation")
+mnist_test_dissimilarity = mnist_dissimilarity_matrix(mnist_test, mnist_train, mnist_recompute)
 mnist_n_components = 10
 mnist_k=10
 mnist_n_clusters = 10
