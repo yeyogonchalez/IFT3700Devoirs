@@ -26,33 +26,40 @@ import time
 
 ##                                  DATASET DOWNLOAD AND CLEANUP
 class DataParser:
-  def __init__(self,database: str):
+  def __init__(self,database: str, recompute):
     data_features_db = pd.read_csv(database).to_numpy()
     self.data_features = np.delete(data_features_db,0,0)
+    self.recompute = recompute
 
   def get_features(self):
     return self.data_features
 
   def splitData(self, sample_size):
-    features = self.data_features
-    size = len(features)
-    training_features = []
-    test_features = []
+    if self.recompute:
+      features = self.data_features
+      size = len(features)
+      training_features = []
+      test_features = []
 
-    for i in range(size):
-      if i%5==1:
-        test_features.append(features[i])
-      else:
-        training_features.append(features[i])
+      for i in range(size):
+        if i%5==1:
+          test_features.append(features[i])
+        else:
+          training_features.append(features[i])
 
-    training_x = np.array(training_features)
-    test_x = np.array(test_features)
+      train_set = np.array(training_features)
+      test_set = np.array(test_features)
 
-    #échantillonage
-    training_x = training_x[np.random.choice(training_x.shape[0], np.floor(sample_size*4/5).astype(int), replace=False), :]
-    test_x = test_x[np.random.choice(test_x.shape[0], np.floor(sample_size*0.2).astype(int), replace=False), :]
+      #échantillonage
+      train_set = train_set[np.random.choice(train_set.shape[0], np.floor(sample_size*4/5).astype(int), replace=False), :]
+      test_set = test_set[np.random.choice(test_set.shape[0], np.floor(sample_size*0.2).astype(int), replace=False), :]
+      np.save('adult_train_set.npy', train_set)
+      np.save('adult_test_set.npy', test_set)
+    else:
+      train_set = np.load('adult_train_set.npy', allow_pickle=True)
+      test_set = np.load('adult_test_set.npy', allow_pickle=True)
 
-    return (training_x, test_x)
+    return (train_set, test_set)
 
 ##                                  DIMENSIONALITY REDUCTION EVALUATION
 def visualize_2D(reduced_feats_train, reduced_feats_test, train_colors, test_colors):
@@ -215,9 +222,9 @@ def adult_dissimilarity(x, y, avg, std):
 def adult_dissimilarity_matrix(X, Y, D, recompute):
   #on assume que le test_set sera toujours plus petit que le train_set
   if len(X) == len(Y):
-    file_name = 'train_diss_matrix.npy'
+    matrix_file_name = 'adult_train_diss_matrix.npy'
   else:
-    file_name = 'test_diss_matrix.npy'
+    matrix_file_name = 'adult_test_diss_matrix.npy'
   
   if recompute:
     diss_matrix = np.zeros(shape=(len(X),len(Y)))
@@ -226,9 +233,9 @@ def adult_dissimilarity_matrix(X, Y, D, recompute):
     for i in range(len(X)):
       for j in range(len(Y)):
         diss_matrix[i,j] = adult_dissimilarity(X[i], Y[j], avg, std)
-    np.save(file_name, diss_matrix)
+    np.save(matrix_file_name, diss_matrix)
   else:
-    diss_matrix = np.load(file_name)
+    diss_matrix = np.load(matrix_file_name)
   return diss_matrix
 
 def numeric_distance_avg(X):
@@ -241,13 +248,17 @@ def numeric_distance_std(X):
 
 
 ##                                          INIT
-dp = DataParser("D1/adult.csv")
+
+##SUPER IMPORTANT PARAMETER:
+recompute = False
+############################
+dp = DataParser("D1/adult.csv", recompute)
 train_set, test_set = dp.splitData(100)
 start = time.time()
-train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=True)
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute)
 end = time.time()
 print(end-start , " seconds elapsed")
-test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=True)
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute)
 n_components = 2
 k=2
 n_clusters = 2
