@@ -1,6 +1,6 @@
 ##                                           IMPORTS                                                       
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import scipy as sp 
 import pandas as pd
 from scipy.spatial.distance import euclidean
@@ -54,12 +54,41 @@ class DataParser:
 
     return (training_x, test_x)
 
-##                                  CLUSTERING EVALUATION
+##                                  DIMENSIONALITY REDUCTION EVALUATION
+def visualize_2D(reduced_feats_train, reduced_feats_test, train_colors, test_colors):
+  reduced_feats_train_x = reduced_feats_train[:, 0]
+  reduced_feats_train_y = reduced_feats_train[:, 1]
+  reduced_feats_test_x = reduced_feats_test[:, 0]
+  reduced_feats_test_y = reduced_feats_test[:, 1]
+  fig = plt.figure(figsize=(12, 8))
+  ax = fig.add_subplot(211)
+  ax.set_title('Training')
+  ax.scatter(reduced_feats_train_x, reduced_feats_train_y, c=train_colors)
+  ax = fig.add_subplot(212)
+  ax.set_title('Testing')
+  ax.scatter(reduced_feats_test_x, reduced_feats_test_y, c=test_colors)
+  plt.show()
+
+def isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors):
+  isomap = Isomap(n_components = n_components, metric='precomputed')
+  isomap_train = isomap.fit_transform(train_set_dissimilarity)
+  isomap_test = isomap.transform(test_set_dissimilarity)
+  train_colors = np.where(train_labels == '<=50K', "red", "green")
+  test_colors = np.where(test_labels == '<=50K', "red", "green")
+  visualize_2D(isomap_train, isomap_test, train_colors, test_colors)
+
+def pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors):
+  pcoa = KernelPCA(n_components, kernel='precomputed')
+  pcoa_train = pcoa.fit_transform(-.5*train_set_dissimilarity**2)
+  pcoa_test = pcoa.transform(-.5*test_set_dissimilarity**2) 
+  visualize_2D(pcoa_train, pcoa_test, train_colors, test_colors)
+
+##                                     CLUSTERING EVALUATION
 def compute_silhouette_score(dissimilarity_matrix, clusters):
     scores = []
     for i in range(len(dissimilarity_matrix)):
         cluster = find_cluster(i, clusters)
-        a = np.mean([dissimilarity_matrix[i][j] for j in cluster])
+        a = np.mean([dissimilarity_matrix[i][j] for j in cluster if j!=i])
         inter2 = [np.mean([dissimilarity_matrix[i][j] for j in clusters[k]]) for k in range(len(clusters)) if k != i]
         b = np.min(inter2)
         score = (b - a) / max(a, b)
@@ -86,9 +115,55 @@ def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_mat
         average_dissimilarity.append(ith_clusters_dissimilarity.mean(axis=1))
     return np.argmin(np.stack(average_dissimilarity), axis=0)
 
+def k_medoids(train_set_dissimilarity, test_set_dissimilarity, k):
+  medoids = range(k)
+  kmedoids_instance = kmedoids(train_set_dissimilarity, medoids, data_type='distance_matrix')
+  kmedoids_instance.process() #training
+  kmedoid_train_clusters = kmedoids_instance.predict(train_set_dissimilarity)
+  kmedoid_train_clusters = clusterize(kmedoid_train_clusters, len(medoids))
+  kmedoid_test_clusters = kmedoids_instance.predict(test_set_dissimilarity)
+  kmedoid_test_clusters = clusterize(kmedoid_test_clusters, len(medoids))
+
+  #EVALUATION
+  kmedoid_train_silhouette_scores = silhouette(train_set_dissimilarity, kmedoid_train_clusters).process().get_score()
+  kmedoid_test_silhouette_scores = silhouette(test_set_dissimilarity, kmedoid_test_clusters).process().get_score()
+  kmedoid_train_silhouette_score = np.mean(kmedoid_train_silhouette_scores)
+  kmedoid_test_silhouette_score = np.mean(kmedoid_test_silhouette_scores)
+  print("le score silhouette de kmedoides pour le jeu d'entraînement est: ", kmedoid_train_silhouette_score)
+  print("le score silhouette de kmedoides pour le jeu de test est: ", kmedoid_test_silhouette_score)
+
+def agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters):
+  agglomerative_clustering = AgglomerativeClustering(n_clusters, affinity='precomputed', linkage='average')
+  agglomerative_clustering.fit(train_set_dissimilarity)
+  agglo_train_clusters = agglomerative_clustering_predict(agglomerative_clustering, train_set_dissimilarity)
+  agglo_train_clusters = clusterize(agglo_train_clusters, n_clusters)
+  agglo_test_clusters = agglomerative_clustering_predict(agglomerative_clustering, test_set_dissimilarity)
+  agglo_test_clusters = clusterize(agglo_test_clusters, n_clusters)
+
+  agglo_train_silhouette_scores = silhouette(train_set_dissimilarity, agglo_train_clusters).process().get_score()
+  agglo_test_silhouette_scores = silhouette(test_set_dissimilarity, agglo_test_clusters).process().get_score()
+  agglo_train_silhouette_score = np.mean(agglo_train_silhouette_scores)
+  agglo_test_silhouette_score = np.mean(agglo_test_silhouette_scores)
+  print("le score silhouette de agglo clustering pour le jeu d'entraînement est: ", agglo_train_silhouette_score)
+  print("le score silhouette de agglo clustering pour le jeu de test est: ", agglo_test_silhouette_score)
+
+
+##                                  CLASSIFICATION EVALUATION
+
 def compute_error_rate(class_preds, true_classes):
     error_num = np.sum(class_preds != true_classes)
     return error_num / len(true_classes)
+
+def knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels):
+  knn = KNeighborsClassifier(n_neighbors, metric='precomputed', algorithm='brute')
+  knn.fit(train_set_dissimilarity, train_labels)
+  knn_train_predictions = knn.predict(train_set_dissimilarity)
+  train_error = compute_error_rate(train_labels, knn_train_predictions)
+  knn_test_predictions = knn.predict(test_set_dissimilarity)
+  test_error = compute_error_rate(test_labels, knn_test_predictions)
+  print("le taux de précision pour le jeu d'entraînement est: ", 1-train_error)
+  print("le taux de précision pour le jeu de test est: ", 1-test_error)
+
 ##----------------------------------------------------------------------------------------------------------#
 ##-------------------------------------------ADULT----------------------------------------------------------#
 
@@ -156,7 +231,6 @@ def adult_dissimilarity_matrix(X, Y, D, recompute):
     diss_matrix = np.load(file_name)
   return diss_matrix
 
-
 def numeric_distance_avg(X):
   numeric_feats_x = X[:, [0,4,10,11,12]].astype(float)
   return np.mean(numeric_feats_x, axis=0)
@@ -168,78 +242,37 @@ def numeric_distance_std(X):
 
 ##                                          INIT
 dp = DataParser("D1/adult.csv")
-train_set, test_set = dp.splitData(1000)
+train_set, test_set = dp.splitData(100)
 start = time.time()
-train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=False)
+train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), recompute=True)
 end = time.time()
 print(end-start , " seconds elapsed")
-test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=False)
+test_set_dissimilarity = adult_dissimilarity_matrix(test_set, train_set, dp.get_features(), recompute=True)
+n_components = 2
+k=2
+n_clusters = 2
+n_neighbors = 2
+train_labels = train_set[:, 14]
+test_labels = test_set[:, 14]
+train_colors = np.where(train_labels == '<=50K', "red", "green")
+test_colors = np.where(test_labels == '<=50K', "red", "green")
 
+#                                          ISOMAP
+isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors)
 
-# #                                          ISOMAP, MISSING PROPER ANALYSIS
-# isomap = Isomap(n_components=1, metric='precomputed')
-# isomap_train = isomap.fit_transform(train_set_dissimilarity)
-# isomap_test = isomap.transform(test_set_dissimilarity)
-
-# fig = plt.figure(figsize=(12, 8))
-# ax = fig.add_subplot(211)
-# ax.set_title('Train Isomap')
-# ax.scatter(isomap_train, np.zeros_like(isomap_train))
-
-# ax = fig.add_subplot(212)
-# ax.set_title('Cosine Isomap sur infinity')
-# ax.scatter(isomap_test, np.zeros_like(isomap_test))
-
-
-
-
-# ##                                          PCOA
-# pcoa = KernelPCA(n_components=1, kernel='precomputed')
-# pcoa_circle = pcoa.fit_transform(-.5*train_set_dissimilarity**2)
-# pcoa_infinity = pcoa.transform(-.5*test_set_dissimilarity**2) 
-
+##                                          PCOA
+pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors)
 
 ##                                          K-MEDOIDS
-initial_medoids = [0,1,2,3]
-kmedoids_instance = kmedoids(train_set_dissimilarity, initial_medoids, data_type='distance_matrix')
-kmedoids_instance.process() #training
-clusters = kmedoids_instance.get_clusters()
-kmedoid_train_clusters = kmedoids_instance.predict(train_set_dissimilarity)
-kmedoid_train_clusters = clusterize(kmedoid_train_clusters, len(initial_medoids))
-kmedoid_test_clusters = kmedoids_instance.predict(test_set_dissimilarity)
-kmedoid_test_clusters = clusterize(kmedoid_test_clusters, len(initial_medoids))
-
-
-
-#ANALYSE
-kmedoid_train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, kmedoid_train_clusters)
-kmedoid_test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, kmedoid_test_clusters)
-
+k_medoids(train_set_dissimilarity, test_set_dissimilarity, k)
 
 ##                                           REGROUPEMENT HIÉRARCHIQUE 
-agglomerative_clustering = AgglomerativeClustering(n_clusters=5, affinity='precomputed', linkage='average')
-agglomerative_clustering.fit(train_set_dissimilarity)
-
-agglo_train_clusters = agglomerative_clustering_predict(agglomerative_clustering, train_set_dissimilarity)
-agglo_train_clusters = clusterize(agglo_train_clusters, n_clusters=5)
-agglo_test_clusters = agglomerative_clustering_predict(agglomerative_clustering, test_set_dissimilarity)
-agglo_test_clusters = clusterize(agglo_test_clusters, n_clusters=5)
-agglo_train_silhouette_score = compute_silhouette_score(train_set_dissimilarity, agglo_train_clusters)
-agglo_test_silhouette_score = compute_silhouette_score(test_set_dissimilarity, agglo_test_clusters)
-
+agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters)
 
 
 ##                                           KNN 
-knn = KNeighborsClassifier(n_neighbors=2, metric='precomputed', algorithm='brute')
-train_labels = train_set[:, 14]
-test_labels = test_set[:, 14]
-knn.fit(train_set_dissimilarity, train_set[:, 14])
+knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels)
 
-knn_train_predictions = knn.predict(train_set_dissimilarity)
-train_score = compute_error_rate(train_labels, knn_train_predictions)
-knn_test_predictions = knn.predict(test_set_dissimilarity)
-test_score = compute_error_rate(test_labels, knn_test_predictions)
-a=1
 ##----------------------------------------------------------------------------------------------------------#
 
 
@@ -255,64 +288,49 @@ a=1
 #  Returns the gradient matrix of W which is of size m*n
 
 def similarity(X, Y,alpha: float=0.5):
-
   euclidean_distance = euclidean(X, Y)
-
   cosine_dist = cosine(X, Y)
-  cosine_sim = 1 - cosine_dist
-
-  return alpha * euclidean_distance + (1 - alpha) * cosine_sim
+  return alpha * euclidean_distance + (1 - alpha) * cosine_dist
 
 ##                                          SIMILARITY MATRIX
 #  points: size nxm Our points to compare 
 #
 #  return a matrix of n x n containing the combined similarity between each pair of points
-def similarity_matrix(points):
+def dissimilarity_matrix(points):
   n = points.shape[0]
-  sim_matrix = np.empty((n, n))
+  diss_matrix = np.empty((n, n))
   for i in range(n):
     for j in range(n):
-      sim_matrix[i][j] = similarity(points[i], points[j])
-    print('punto '+str(i)+'/'+str(n))
-  return sim_matrix
+      diss_matrix[i][j] = similarity(points[i], points[j])
 
-##                                          TEST
-# dp = DataParser(database='D1/mnist.csv')
-# mnist_train,mnist_test=dp.splitData()
+  return diss_matrix
 
-# trainSimilarity = similarity_matrix(mnist_train)
-# testSimilarity = similarity_matrix(mnist_test)
+##                                          INIT
+dp = DataParser(database='D1/mnist.csv')
+mnist_train, mnist_test = dp.splitData(1000)
+mnist_train_dissimilarity = dissimilarity_matrix(mnist_train)
+mnist_test_dissimilarity = dissimilarity_matrix(mnist_test)
+mnist_n_components = 10
+mnist_k=10
+mnist_n_clusters = 10
+mnist_n_neighbors = 5
+mnist_train_labels = mnist_train[:, 0]
+mnist_test_labels = mnist_test[:, 0]
+colors = np.array(["red","green","blue","yellow","pink","orange","purple","brown","cyan","magenta"])
+mnist_train_colors = [colors[i] for i in mnist_train_labels]
+mnist_test_colors = [colors[i] for i in mnist_test_labels]
 
-# plt.figure(figsize=(6,6)).add_subplot(111).imshow(similarity)
+##                                          ISOMAP
+isomap(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors)
 
-##                                          K-NN
-# Create an instance of the KNN classifier
-knn = KNeighborsClassifier(n_neighbors=5, metric='precomputed', algorithm='brute')
+##                                          PCOA
+pcoa(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors)
 
-# Fit the model to the training data
-knn.fit(trainSimilarity)
+##                                          K-MEDOIDS
+k_medoids(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_k)
 
-# Use the model to make predictions on the test data
-predictions = knn.predict(mnist_test)
+##                                          AGGLOMERATIVE CLUSTERING
+agglomerative_clustering(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_clusters)
 
-##                                          K-Medoids
-initial_medoids = [0,1,2] # no se que pedo con esto
-# Create an instance of the K-Medoids model
-kmedoids_instance = kmedoids(trainSimilarity, initial_medoids, data_type='distance_matrix')
-
-# Fit the model to the data
-kmedoids_instance.process() #training
-
-
-# Predict the cluster labels for the data
-kmedoids_instance.predict(mnist_test)
-
-##                                          PCoA
-pcoa = KernelPCA(n_components=1, kernel='precomputed')
-pcoa_circle = pcoa.fit_transform(-.5*trainSimilarity**2) #-.5*D**2 est crucial!!!
-pcoa_infinity = pcoa.transform(-.5*testSimilarity**2) #-.5*D**2 est crucial!!!
-
-##                                          Isomap
-isomap = Isomap(n_components=1, n_neighbors=2, metric='precomputed')
-isomap_circle = isomap.fit_transform(trainSimilarity)
-isomap_infinity = isomap.transform(testSimilarity)
+##                                          KNN
+knn(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_neighbors, mnist_train_labels, mnist_test_labels)
