@@ -138,8 +138,8 @@ def k_medoids(train_set_dissimilarity, test_set_dissimilarity, k):
   #EVALUATION
   kmedoid_train_silhouette_scores = silhouette(train_set_dissimilarity, kmedoid_train_clusters).process().get_score()
   kmedoid_test_silhouette_scores = silhouette(test_set_dissimilarity, kmedoid_test_clusters).process().get_score()
-  kmedoid_train_silhouette_score = np.mean(kmedoid_train_silhouette_scores)
-  kmedoid_test_silhouette_score = np.mean(kmedoid_test_silhouette_scores)
+  kmedoid_train_silhouette_score = np.nanmean(kmedoid_train_silhouette_scores)
+  kmedoid_test_silhouette_score = np.nanmean(kmedoid_test_silhouette_scores)
   print("le score silhouette de kmedoides pour le jeu d'entraînement est: ", kmedoid_train_silhouette_score)
   print("le score silhouette de kmedoides pour le jeu de test est: ", kmedoid_test_silhouette_score)
 
@@ -153,8 +153,8 @@ def agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_
 
   agglo_train_silhouette_scores = silhouette(train_set_dissimilarity, agglo_train_clusters).process().get_score()
   agglo_test_silhouette_scores = silhouette(test_set_dissimilarity, agglo_test_clusters).process().get_score()
-  agglo_train_silhouette_score = np.mean(agglo_train_silhouette_scores)
-  agglo_test_silhouette_score = np.mean(agglo_test_silhouette_scores)
+  agglo_train_silhouette_score = np.nanmean(agglo_train_silhouette_scores)
+  agglo_test_silhouette_score = np.nanmean(agglo_test_silhouette_scores)
   print("le score silhouette de agglo clustering pour le jeu d'entraînement est: ", agglo_train_silhouette_score)
   print("le score silhouette de agglo clustering pour le jeu de test est: ", agglo_test_silhouette_score)
 
@@ -254,7 +254,7 @@ def numeric_distance_std(X):
 ##                                          INIT
 
 ##SUPER IMPORTANT PARAMETER:
-adult_recompute = False
+adult_recompute = True
 ############################
 dp = DataParser("D1/adult.csv", adult_recompute, data_id = "ADULT")
 train_set, test_set = dp.splitData(100)
@@ -278,15 +278,15 @@ isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colo
 ##                                          PCOA
 pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors)
 
-# ##                                          K-MEDOIDS
-# k_medoids(train_set_dissimilarity, test_set_dissimilarity, k)
+##                                          K-MEDOIDS
+k_medoids(train_set_dissimilarity, test_set_dissimilarity, k)
 
-# ##                                           REGROUPEMENT HIÉRARCHIQUE 
-# agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters)
+##                                           REGROUPEMENT HIÉRARCHIQUE 
+agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters)
 
 
-# ##                                           KNN 
-# knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels)
+##                                           KNN 
+knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels)
 
 ##----------------------------------------------------------------------------------------------------------#
 
@@ -302,7 +302,7 @@ pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors
 #
 #  Returns the gradient matrix of W which is of size m*n
 
-def mnist_dissimilarity(X, Y,alpha: float=0.5):
+def mnist_dissimilarity(X, Y,alpha: float=0.2):
   euclidean_distance = euclidean(X, Y)
   cosine_dist = cosine(X, Y)
   return alpha * euclidean_distance + (1 - alpha) * cosine_dist
@@ -330,10 +330,10 @@ def mnist_dissimilarity_matrix(X, Y, recompute):
 ##                                          INIT
 
 ##SUPER IMPORTANT PARAMETER
-mnist_recompute = False
+mnist_recompute = True
 ###########################
 dp = DataParser('D1/mnist.csv', mnist_recompute, data_id = "MNIST" )
-mnist_train, mnist_test = dp.splitData(1000)
+mnist_train, mnist_test = dp.splitData(100)
 start = time.time()
 mnist_train_dissimilarity = mnist_dissimilarity_matrix(mnist_train, mnist_train, mnist_recompute)
 end = time.time()
