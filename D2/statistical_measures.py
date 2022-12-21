@@ -1,12 +1,5 @@
 import csv
 import numpy as np
-import pandas as pd
-
-
-def cast_to_float_or_nan(lst):
-    
-    return [float(x) if x.isnumeric() else np.nan for x in lst]
-
 
 # Open the CSV file and read the contents into a list of rows
 with open('D2/filtered_countries_data.csv', 'r') as f:
@@ -21,13 +14,11 @@ rows = rows[1:]
 data = np.array(rows)
 
 # Create an empty list to store the results
-header = header
 results=[]
 
 # Iterate over the columns in the data, starting from the second column (index 1)
 for col in data.T[1:]:
   # Convert the elements in the column to floats, ignoring empty strings
-  # Remove the apostrophes from the values in the column
    
   col=col.astype(float)
 
@@ -48,9 +39,6 @@ for col in data.T[1:]:
   results.append([mean, median, max_, min_, variance, na_count])
 results_format=np.array(results).T.tolist()
 test=np.array(results)
-print(np.shape(test))
-print(len(results_format[0]))
-print(len(results))
 results_format.insert(0,header)
 # Write the results to a CSV file
 with open('output.csv', 'w', newline='') as f:

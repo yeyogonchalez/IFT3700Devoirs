@@ -252,9 +252,9 @@ def adult_dissimilarity(x, y, avg, std):
 def adult_dissimilarity_matrix(X, Y, D, recompute):
   #on assume que le test_set sera toujours plus petit que le train_set
   if len(X) == len(Y):
-    matrix_file_name = 'adult_train_diss_matrix.npy'
+    matrix_file_name = 'D1/npyFiles/adult_train_diss_matrix.npy'
   else:
-    matrix_file_name = 'adult_test_diss_matrix.npy'
+    matrix_file_name = 'D1/npyFiles/adult_test_diss_matrix.npy'
   
   if recompute:
     diss_matrix = np.zeros(shape=(len(X),len(Y)))
@@ -340,9 +340,9 @@ def mnist_dissimilarity(X, Y, alpha):
 #  return a matrix of n x n containing the combined similarity between each pair of points
 def mnist_dissimilarity_matrix(X, Y, recompute, alpha):
   if len(X) == len(Y):
-    matrix_file_name = 'mnist_train_diss_matrix.npy'
+    matrix_file_name = 'D1/npyFiles/mnist_train_diss_matrix.npy'
   else:
-    matrix_file_name = 'mnist_test_diss_matrix.npy'
+    matrix_file_name = 'D1/npyFiles/mnist_test_diss_matrix.npy'
   
   if recompute:
     diss_matrix = np.zeros(shape=(len(X),len(Y)))
