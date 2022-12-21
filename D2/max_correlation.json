@@ -1,1 +1,122 @@
-{"gdp_debt": {"Average yearly temperature (1961-20131990 Celsius)": -0.22556510024530232}, "gini % ": {"Incarceration rate per 100000": 0.22842202552485702}, "alcohol consumption 2016": {"Anual nominal US": 0.46414217820772086}, "Average daily dietary energy consumption per capita(kilocalories)": {"Fertility rate  in 2020(births/woman)": -0.6683316069885564}, "Median Age 2020": {"Fertility rate  in 2020(births/woman)": -0.8820775470597197}, "health expenditure per capita 2018": {"Prevalecence of tobacco use 2000": 0.20525638209112615}, "spending on education(% GDP)": {"Anual nominal US": 0.187582681242354}, "population growth": {"Average daily dietary energy consumption per capita(kilocalories)": -0.5612619264279322}, "democracy index 2020": {"Average yearly temperature (1961\u20131990 Celsius)": -0.4191480296891968}, "Homelessness population per 10k": {"Fertility rate  in 2020(births/woman)": 0.3076291632126278}, "Economic Freedom Score": {"Average yearly temperature (1961\u20131990 Celsius)": -0.4488137939050627}, "milk consumption per capita(2013)": {"Fertility rate  in 2020(births/woman)": -0.5732019835663339}, "2019 mortality rate, under-5 (per 1000 live births)": {"Scientific publications per capita (in ppm)": -0.5047445780513944}, "literacy rate elderly(+65)": {"Average daily dietary energy consumption per capita(kilocalories)": 0.4429045160677996}, "% Islam": {"Averagedownloadspeed(Mbit/s)(Ookla)": -0.1909859070725682}, "titles(total)": {"Median Age 2020": 0.30830088636727243}, "% Buddhists": {"Averagedownloadspeed(Mbit/s)(Ookla)": 0.16930180865811778}, "Obesity rate (%)": {"Fertility rate  in 2020(births/woman)": -0.5110471459841464}, "intentional homicide Rate": {"gdp_debt": -0.1407178290517302}, "% Jewish": {"kg per capita 2002": 0.25785686564037236}, "Averagedownloadspeed(Mbit/s)(Ookla)": {"Median Age 2020": 0.3785390824641409}, "% Christians": {"literacy rate elderly(+65)": 0.309052633365603}, "Oil production per capita2021 (bbl/day/million people)": {"kg per capita 2002": 0.1752741684739688}, "Anual nominal US": {"Prevalecence of tobacco use 2000": 0.13668639605009827}, "yes important %": {"Average daily dietary energy consumption per capita(kilocalories)": -0.5448287988599556}, "Prevalecence of tobacco use 2000": {"Incarceration rate per 100000": -0.08357466708913858}, "gdp estimate un": {"Median Age 2020": 0.5888190122569394}, "number of internet users %": {"Fertility rate  in 2020(births/woman)": -0.8057365664829192}, "Fertility rate  in 2020(births/woman)": {"Average daily dietary energy consumption per capita(kilocalories)": -0.6683316069885564}, "HDI 2021": {"Scientific publications per capita (in ppm)": 0.7321763145052844}, "Age of first marriage(woman)": {"Fertility rate  in 2020(births/woman)": -0.7118513171306282}, "Incarceration rate per 100000": {"2019 mortality rate, under-5 (per 1000 live births)": -0.3272006150237504}, "Average yearly temperature (1961\u20131990 Celsius)": {"Anual nominal US": -0.4322934970972882}, "Scientific publications per capita (in ppm)": {"Prevalecence of tobacco use 2000": 0.21638623931201909}, "Life expentacy at birth": {"Fertility rate  in 2020(births/woman)": -0.802718297117821}, "Total Suicides per 100 000": {"Scientific publications per capita (in ppm)": -0.033621277998405204}, "Equivalent to a 2-year degree or higher(%)": {"% Jewish": 0.09063886164573}, "Age of criminal responsibility": {"Incarceration rate per 100000": 0.10230082378980751}, "kg per capita 2002": {"Median Age 2020": 0.6785996560619661}, "military expenditures %gdp": {"intentional homicide Rate": -0.04100233975896209}}
+{
+    "gdp_debt":{
+       "Scientific publications per capita (in ppm)":0.523923357064687
+    },
+    "gini % ":{
+       "Average yearly temperature (1961\u20131990 Celsius)":0.47824694267541584
+    },
+    "alcohol consumption 2016":{
+       "yes important %":-0.6660568290175249
+    },
+    "Average daily dietary energy consumption per capita(kilocalories)":{
+       "HDI 2021":0.8078801166907709
+    },
+    "Median Age 2020":{
+       "HDI 2021":0.8880299825574669
+    },
+    "health expenditure per capita 2018":{
+       "gdp estimate un":0.9194179781569829
+    },
+    "spending on education(% GDP)":{
+       "yes important %":-0.3756515033660514
+    },
+    "population growth":{
+       "Median Age 2020":-0.8618602716587247
+    },
+    "democracy index 2020":{
+       "Scientific publications per capita (in ppm)":0.6497705027761878
+    },
+    "Homelessness population per 10k":{
+       "HDI 2021":-0.4000734878899938
+    },
+    "Economic Freedom Score":{
+       "Scientific publications per capita (in ppm)":0.6878256404558039
+    },
+    "milk consumption per capita(2013)":{
+       "HDI 2021":0.7190808024229981
+    },
+    "2019 mortality rate, under-5 (per 1000 live births)":{
+       "Life expentacy at birth":-0.8789289313059088
+    },
+    "literacy rate elderly(+65)":{
+       "Median Age 2020":0.7261342807189517
+    },
+    "% Islam":{
+       "% Christians":-0.744366932877726
+    },
+    "books published per year titles(total)":{
+       "health expenditure per capita 2018":0.3653451254346687
+    },
+    "% Buddhists":{
+       "% Christians":-0.3386231547298925
+    },
+    "Obesity rate (%)":{
+       "HDI 2021":0.5954428020534143
+    },
+    "intentional homicide Rate":{
+       "gini % ":0.41627644008359904
+    },
+    "% Jewish":{
+       "military expenditures %gdp":0.4737689922782091
+    },
+    "Averagedownloadspeed(Mbit/s)(Ookla)":{
+       "health expenditure per capita 2018":0.5805726419631728
+    },
+    "% Christians":{
+       "% Islam":-0.7443669328777262
+    },
+    "Oil production per capita2021 (bbl/day/million people)":{
+       "military expenditures %gdp":0.42025165403052445
+    },
+    "Anual nominal US":{
+       "gdp estimate un":0.8146008327726627
+    },
+    "Religion yes important %":{
+       "Median Age 2020":-0.7288146166781886
+    },
+    "Prevalecence of tobacco use 2000":{
+       "Average yearly temperature (1961\u20131990 Celsius)":-0.4867359324039145
+    },
+    "gdp estimate un":{
+       "health expenditure per capita 2018":0.919417978156983
+    },
+    "number of internet users %":{
+       "HDI 2021":0.878032356605652
+    },
+    "Fertility rate  in 2020(births/woman)":{
+       "Median Age 2020":-0.8820775470597199
+    },
+    "HDI 2021":{
+       "Life expentacy at birth":0.8902723774758489
+    },
+    "Age of first marriage(woman)":{
+       "HDI 2021":0.7778631015046463
+    },
+    "Incarceration rate per 100000":{
+       "literacy rate elderly(+65)":0.3389135159762711
+    },
+    "Average yearly temperature (1961\u20131990 Celsius)":{
+       "yes important %":0.6830547681440914
+    },
+    "Scientific publications per capita (in ppm)":{
+       "gdp estimate un":0.8864766415265433
+    },
+    "Life expentacy at birth":{
+       "HDI 2021":0.8902723774758489
+    },
+    "Total Suicides per 100 000":{
+       "Life expentacy at birth":-0.4272317349228165
+    },
+    "Equivalent to a 2-year degree or higher(%)":{
+       "Averagedownloadspeed(Mbit/s)(Ookla)":0.3856445354054343
+    },
+    "Age of criminal responsibility":{
+       "Average yearly temperature (1961\u20131990 Celsius)":-0.36050467111682355
+    },
+    "Meat consumption kg per capita 2002":{
+       "health expenditure per capita 2018":0.7655987633840224
+    },
+    "military expenditures %gdp":{
+       "% Jewish":0.4737689922782091
+    }
+ }

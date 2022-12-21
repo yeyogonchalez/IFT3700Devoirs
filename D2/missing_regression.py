@@ -100,12 +100,30 @@ np.fill_diagonal(correlation_matrix,0)
 for i in range(1,correlation_matrix.shape[1]):
     column=correlation_matrix[1:, i].astype(float)
     index_max=np.argmax(np.abs(column))
-    print(i)
-    print(index_max)
-    value=correlation_matrix[index_max,i]
-    category=correlation_matrix[index_max,0]
+    value=column[index_max]
+    category=correlation_matrix[index_max+1,0]
     max_corr[correlation_matrix[0,i]]={category:value}
 
+
+ordered_corr={}
+np.fill_diagonal(correlation_matrix,'avoid') 
+for i in range(1,correlation_matrix.shape[1]):
+    column_data={}
+    column=correlation_matrix[1:, i]
+    names=correlation_matrix[1:, 0]
+    avoid_index=np.where(column == 'avoid')
+    filtered_column=np.delete(column,avoid_index)
+    filtered_names=np.delete(names,avoid_index)
+    print(len(filtered_column))
+    sort_indexes = np.argsort(np.absolute(filtered_column),axis=-1, kind="quicksort")
+    for index in sort_indexes:
+        column_data[filtered_names[index]]=filtered_column[index]
+    ordered_corr[correlation_matrix[0,i]]=column_data
+
+
+
+
+    
 
 # Convert the list to a JSON string
 json_str = json.dumps(max_corr)
