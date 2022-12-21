@@ -55,15 +55,15 @@ for i in range(num_regressions):
 
 # Duplicate columns
     
-duplicated_countries = modified_countries.copy().reshape(countries_data.shape[0], countries_data.shape[1]*2)
-#duplicated_countries[:0] =   countries_data[:,0]
+duplicated_countries = np.empty((countries_data.shape[0], countries_data.shape[1]*2),dtype=object)
+
 for i in range(1,countries_data.shape[1]):
     # assign the values of the original column to the first half of the new column
     duplicated_countries[:, i*2] = modified_countries[:, i]
-    median = statistics[1,i]
+    median = float(statistics[1,i])
     
     for j in range(countries_data.shape[0]):
-        if duplicated_countries[j, i*2]<=median:
+        if float(duplicated_countries[j, i*2])<=median:
             duplicated_countries[j,i*2+1]=0
         else:
             duplicated_countries[j,i*2+1]=1
@@ -71,5 +71,7 @@ for i in range(1,countries_data.shape[1]):
 
     # assign the values of the original column to the second half of the new column
     
-
+duplicated_countries[:,1] =  modified_countries[:,0]
+#duplicated_countries =  np.delete(modified_countries, 0, axis=1)
+duplicated_countries =  duplicated_countries[:,1:]
 ctn.revert(duplicated_countries,'duplicated_countries.csv')

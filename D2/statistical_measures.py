@@ -19,7 +19,6 @@ results=[]
 # Iterate over the columns in the data, starting from the second column (index 1)
 for col in data.T[1:]:
   # Convert the elements in the column to floats, ignoring empty strings
-  # Remove the apostrophes from the values in the column
    
   col=col.astype(float)
 
