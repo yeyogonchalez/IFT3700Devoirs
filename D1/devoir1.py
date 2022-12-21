@@ -283,7 +283,7 @@ def numeric_distance_std(X):
 adult_recompute = False
 ############################
 dp = DataParser("D1/adult.csv", adult_recompute, data_id = "ADULT")
-train_set, test_set = dp.splitData(100)
+train_set, test_set = dp.splitData(13000)
 start = time.time()
 train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), adult_recompute)
 end = time.time()
