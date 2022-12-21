@@ -68,7 +68,7 @@ class DataParser:
     return (train_set, test_set)
 
 ##                                  DIMENSIONALITY REDUCTION EVALUATION
-def visualize_2D(reduced_feats_train, reduced_feats_test, train_colors, test_colors):
+def visualize_2D(reduced_feats_train, reduced_feats_test, train_colors, test_colors, file_name):
   reduced_feats_train_x = reduced_feats_train[:, 0]
   reduced_feats_train_y = reduced_feats_train[:, 1]
   reduced_feats_test_x = reduced_feats_test[:, 0]
@@ -80,19 +80,21 @@ def visualize_2D(reduced_feats_train, reduced_feats_test, train_colors, test_col
   ax = fig.add_subplot(212)
   ax.set_title('Testing')
   ax.scatter(reduced_feats_test_x, reduced_feats_test_y, c=test_colors)
-  plt.show()
+  plt.savefig(file_name)
+  plt.clf()
 
-def isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors):
+def isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors, file_name):
   isomap = Isomap(n_components = n_components, metric='precomputed')
   isomap_train = isomap.fit_transform(train_set_dissimilarity)
   isomap_test = isomap.transform(test_set_dissimilarity)
-  visualize_2D(isomap_train, isomap_test, train_colors, test_colors)
-
-def pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors):
+  visualize_2D(isomap_train, isomap_test, train_colors, test_colors, file_name)
+  
+def pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors, file_name):
   pcoa = KernelPCA(n_components, kernel='precomputed')
   pcoa_train = pcoa.fit_transform(-.5*train_set_dissimilarity**2)
   pcoa_test = pcoa.transform(-.5*test_set_dissimilarity**2) 
-  visualize_2D(pcoa_train, pcoa_test, train_colors, test_colors)
+  visualize_2D(pcoa_train, pcoa_test, train_colors, test_colors, file_name)
+
 
 ##                                     CLUSTERING EVALUATION
 def compute_silhouette_score(dissimilarity_matrix, clusters):
@@ -126,7 +128,7 @@ def agglomerative_clustering_predict(agglomerative_clustering, dissimilarity_mat
         average_dissimilarity.append(ith_clusters_dissimilarity.mean(axis=1))
     return np.argmin(np.stack(average_dissimilarity), axis=0)
 
-def k_medoids(train_set_dissimilarity, test_set_dissimilarity, k):
+def k_medoids(train_set_dissimilarity, test_set_dissimilarity, k, file_name):
   medoids = range(k)
   kmedoids_instance = kmedoids(train_set_dissimilarity, medoids, data_type='distance_matrix')
   kmedoids_instance.process() #training
@@ -140,10 +142,15 @@ def k_medoids(train_set_dissimilarity, test_set_dissimilarity, k):
   kmedoid_test_silhouette_scores = silhouette(test_set_dissimilarity, kmedoid_test_clusters).process().get_score()
   kmedoid_train_silhouette_score = np.nanmean(kmedoid_train_silhouette_scores)
   kmedoid_test_silhouette_score = np.nanmean(kmedoid_test_silhouette_scores)
-  print("le score silhouette de kmedoides pour le jeu d'entraînement est: ", kmedoid_train_silhouette_score)
-  print("le score silhouette de kmedoides pour le jeu de test est: ", kmedoid_test_silhouette_score)
 
-def agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters):
+  if file_name != "":
+    file = open(file_name, "w+")
+    file.write("le score silhouette de kmedoides pour le jeu d'entrainement est: " + str(kmedoid_train_silhouette_score) + "\n")
+    file.write("le score silhouette de kmedoides pour le jeu de test est: " + str(kmedoid_test_silhouette_score) + "\n")
+    file.close() 
+  return kmedoid_train_silhouette_score, kmedoid_test_silhouette_score
+
+def agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters, file_name):
   agglomerative_clustering = AgglomerativeClustering(n_clusters, affinity='precomputed', linkage='average')
   agglomerative_clustering.fit(train_set_dissimilarity)
   agglo_train_clusters = agglomerative_clustering_predict(agglomerative_clustering, train_set_dissimilarity)
@@ -155,8 +162,13 @@ def agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_
   agglo_test_silhouette_scores = silhouette(test_set_dissimilarity, agglo_test_clusters).process().get_score()
   agglo_train_silhouette_score = np.nanmean(agglo_train_silhouette_scores)
   agglo_test_silhouette_score = np.nanmean(agglo_test_silhouette_scores)
-  print("le score silhouette de agglo clustering pour le jeu d'entraînement est: ", agglo_train_silhouette_score)
-  print("le score silhouette de agglo clustering pour le jeu de test est: ", agglo_test_silhouette_score)
+  if file_name != "":
+    file = open(file_name, "w+")
+    file.write("le score silhouette de agglo clustering pour le jeu d'entrainement est: "+ str(agglo_train_silhouette_score) + "\n")
+    file.write("le score silhouette de agglo clustering pour le jeu de test est: " + str(agglo_test_silhouette_score) + "\n")
+    file.close()
+
+  return agglo_train_silhouette_score, agglo_test_silhouette_score
 
 
 ##                                  CLASSIFICATION EVALUATION
@@ -165,15 +177,29 @@ def compute_error_rate(class_preds, true_classes):
     error_num = np.sum(class_preds != true_classes)
     return error_num / len(true_classes)
 
-def knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels):
+def knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels, file_name):
   knn = KNeighborsClassifier(n_neighbors, metric='precomputed', algorithm='brute')
   knn.fit(train_set_dissimilarity, train_labels)
   knn_train_predictions = knn.predict(train_set_dissimilarity)
   train_error = compute_error_rate(train_labels, knn_train_predictions)
   knn_test_predictions = knn.predict(test_set_dissimilarity)
   test_error = compute_error_rate(test_labels, knn_test_predictions)
-  print("le taux de précision pour le jeu d'entraînement est: ", 1-train_error)
-  print("le taux de précision pour le jeu de test est: ", 1-test_error)
+  if file_name != "":
+    file = open(file_name, "w+")
+    file.write("le taux de precision pour le jeu d'entrainement est: " + str(1-train_error) + "\n")
+    file.write("le taux de precision pour le jeu de test est: " + str(1-test_error) + "\n")
+    file.close()
+  return 1-train_error, 1-test_error
+
+##                                  PLOTTING TOOLS
+
+def saveplot(x1, y1, x2, y2, xlabel, ylabel, file_name):
+  plt.plot(x1, y1, color='green')
+  plt.plot(x2,y2, color='red')
+  plt.xlabel(xlabel)
+  plt.ylabel(ylabel)
+  plt.savefig(file_name)
+  plt.clf()
 
 ##----------------------------------------------------------------------------------------------------------#
 ##-------------------------------------------ADULT----------------------------------------------------------#
@@ -254,7 +280,7 @@ def numeric_distance_std(X):
 ##                                          INIT
 
 ##SUPER IMPORTANT PARAMETER:
-adult_recompute = True
+adult_recompute = False
 ############################
 dp = DataParser("D1/adult.csv", adult_recompute, data_id = "ADULT")
 train_set, test_set = dp.splitData(100)
@@ -273,20 +299,21 @@ train_colors = np.where(train_labels == '<=50K', "red", "green")
 test_colors = np.where(test_labels == '<=50K', "red", "green")
 
 #                                          ISOMAP
-isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors)
+isomap(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors, "D1/AdultResults/isomap.png")
+
 
 ##                                          PCOA
-pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors)
+pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_colors, test_colors, "D1/AdultResults/pcoa.png")
 
 ##                                          K-MEDOIDS
-k_medoids(train_set_dissimilarity, test_set_dissimilarity, k)
+k_medoids(train_set_dissimilarity, test_set_dissimilarity, k, "D1/AdultResults/kmedoids.txt")
 
 ##                                           REGROUPEMENT HIÉRARCHIQUE 
-agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters)
+agglomerative_clustering(train_set_dissimilarity, test_set_dissimilarity, n_clusters, "D1/AdultResults/agglo_clust.txt")
 
 
 ##                                           KNN 
-knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels)
+knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, test_labels, "D1/AdultResults/knn.txt")
 
 ##----------------------------------------------------------------------------------------------------------#
 
@@ -302,7 +329,7 @@ knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, 
 #
 #  Returns the gradient matrix of W which is of size m*n
 
-def mnist_dissimilarity(X, Y,alpha: float=0.2):
+def mnist_dissimilarity(X, Y, alpha):
   euclidean_distance = euclidean(X, Y)
   cosine_dist = cosine(X, Y)
   return alpha * euclidean_distance + (1 - alpha) * cosine_dist
@@ -311,7 +338,7 @@ def mnist_dissimilarity(X, Y,alpha: float=0.2):
 #  points: size nxm Our points to compare 
 #
 #  return a matrix of n x n containing the combined similarity between each pair of points
-def mnist_dissimilarity_matrix(X, Y, recompute):
+def mnist_dissimilarity_matrix(X, Y, recompute, alpha):
   if len(X) == len(Y):
     matrix_file_name = 'mnist_train_diss_matrix.npy'
   else:
@@ -321,7 +348,7 @@ def mnist_dissimilarity_matrix(X, Y, recompute):
     diss_matrix = np.zeros(shape=(len(X),len(Y)))
     for i in range(len(X)):
       for j in range(len(Y)):
-        diss_matrix[i,j] = mnist_dissimilarity(X[i], Y[j])
+        diss_matrix[i,j] = mnist_dissimilarity(X[i], Y[j], alpha)
     np.save(matrix_file_name, diss_matrix)
   else:
     diss_matrix = np.load(matrix_file_name)
@@ -334,11 +361,12 @@ mnist_recompute = True
 ###########################
 dp = DataParser('D1/mnist.csv', mnist_recompute, data_id = "MNIST" )
 mnist_train, mnist_test = dp.splitData(100)
+alpha = 1
 start = time.time()
-mnist_train_dissimilarity = mnist_dissimilarity_matrix(mnist_train, mnist_train, mnist_recompute)
+mnist_train_dissimilarity = mnist_dissimilarity_matrix(mnist_train, mnist_train, mnist_recompute, alpha)
 end = time.time()
 print(end-start, " seconds for matrix computation")
-mnist_test_dissimilarity = mnist_dissimilarity_matrix(mnist_test, mnist_train, mnist_recompute)
+mnist_test_dissimilarity = mnist_dissimilarity_matrix(mnist_test, mnist_train, mnist_recompute, alpha)
 mnist_n_components = 10
 mnist_k=10
 mnist_n_clusters = 10
@@ -350,16 +378,61 @@ mnist_train_colors = [colors[i] for i in mnist_train_labels]
 mnist_test_colors = [colors[i] for i in mnist_test_labels]
 
 ##                                          ISOMAP
-isomap(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors)
+isomap(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors, "D1/MnistResults/isomap.png" )
 
 ##                                          PCOA
-pcoa(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors)
+pcoa(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors, "D1/MnistResults/pcoa.png")
 
 ##                                          K-MEDOIDS
-k_medoids(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_k)
+k_medoids(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_k, "D1/MnistResults/kmedoids.txt")
 
 ##                                          AGGLOMERATIVE CLUSTERING
-agglomerative_clustering(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_clusters)
+agglomerative_clustering(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_clusters, "D1/MnistResults/agglo_clust.txt")
 
 ##                                          KNN
-knn(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_neighbors, mnist_train_labels, mnist_test_labels)
+knn(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_neighbors, mnist_train_labels, mnist_test_labels, "D1/MnistResults/knn.txt")
+
+##                                          COMPARISON WITH EUCLIDIAN DISTANCE
+alphas = [0, 0.2, 0.4, 0.6, 0.8, 1]
+kmedoids_train_silh_scores = []
+agglo_train_silh_scores = []
+knn_train_accuracies = []
+kmedoids_test_silh_scores = []
+agglo_test_silh_scores = []
+knn_test_accuracies = []
+i = 0
+comparison_recompute = True
+for alpha in alphas:
+  mnist_train_dissimilarity = mnist_dissimilarity_matrix(mnist_train, mnist_train, comparison_recompute, alpha)
+  mnist_test_dissimilarity = mnist_dissimilarity_matrix(mnist_test, mnist_train, comparison_recompute, alpha)
+
+  ##                                          ISOMAP
+  isomap(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors, "D1/MnistComparison/isomap" + str(i) + ".png" )
+
+  ##                                          PCOA
+  pcoa(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_components, mnist_train_colors, mnist_test_colors, "D1/MnistComparison/pcoa" + str(i) + ".png")
+
+  ##                                          K-MEDOIDS
+  kmedoids_train_silh_score, kmedoids_test_silh_score = k_medoids(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_k, "")
+  kmedoids_train_silh_scores.append(kmedoids_train_silh_score)
+  kmedoids_test_silh_scores.append(kmedoids_test_silh_score)
+
+  ##                                          AGGLOMERATIVE CLUSTERING
+  agglo_train_silh_score, agglo_test_silh_score = agglomerative_clustering(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_clusters, "")
+  agglo_train_silh_scores.append(agglo_train_silh_score)
+  agglo_test_silh_scores.append(agglo_test_silh_score)
+
+  ##                                           KNN
+  knn_train_accuracy, knn_test_accuracy =  knn(mnist_train_dissimilarity, mnist_test_dissimilarity, mnist_n_neighbors, mnist_train_labels, mnist_test_labels, "")
+  knn_train_accuracies.append(knn_train_accuracy)
+  knn_test_accuracies.append(knn_test_accuracy)
+
+  i+=1
+
+saveplot(alphas, kmedoids_train_silh_scores, alphas, kmedoids_test_silh_scores, "alpha", "silhouette score", "D1/MnistComparison/kmedoids.png")
+saveplot(alphas, agglo_train_silh_scores, alphas, agglo_test_silh_scores, "alpha", "silhouette score", "D1/MnistComparison/agglo_clust.png")
+saveplot(alphas, knn_train_accuracies, alphas, knn_test_accuracies, "alpha", "accuracy rate", "D1/MnistComparison/knn.png")
+
+
+
+

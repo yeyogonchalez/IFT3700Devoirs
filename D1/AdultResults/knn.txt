@@ -1,0 +1,2 @@
+le taux de precision pour le jeu d'entrainement est: 0.975
+le taux de precision pour le jeu de test est: 1.0

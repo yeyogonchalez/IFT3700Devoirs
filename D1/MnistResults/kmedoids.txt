@@ -1,0 +1,2 @@
+le score silhouette de kmedoides pour le jeu d'entrainement est: 0.14955783184404373
+le score silhouette de kmedoides pour le jeu de test est: 0.14611399788434304

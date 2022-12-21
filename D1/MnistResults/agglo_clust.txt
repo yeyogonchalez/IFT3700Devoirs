@@ -1,0 +1,2 @@
+le score silhouette de agglo clustering pour le jeu d'entrainement est: 0.0446182929094675
+le score silhouette de agglo clustering pour le jeu de test est: -0.28265797882549293
