@@ -257,7 +257,7 @@ def numeric_distance_std(X):
 adult_recompute = True
 ############################
 dp = DataParser("D1/adult.csv", adult_recompute, data_id = "ADULT")
-train_set, test_set = dp.splitData(100)
+train_set, test_set = dp.splitData(13000)
 start = time.time()
 train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), adult_recompute)
 end = time.time()
@@ -302,7 +302,7 @@ knn(train_set_dissimilarity, test_set_dissimilarity, n_neighbors, train_labels, 
 #
 #  Returns the gradient matrix of W which is of size m*n
 
-def mnist_dissimilarity(X, Y,alpha: float=0.2):
+def mnist_dissimilarity(X, Y,alpha: float=0.5):
   euclidean_distance = euclidean(X, Y)
   cosine_dist = cosine(X, Y)
   return alpha * euclidean_distance + (1 - alpha) * cosine_dist
@@ -333,7 +333,7 @@ def mnist_dissimilarity_matrix(X, Y, recompute):
 mnist_recompute = True
 ###########################
 dp = DataParser('D1/mnist.csv', mnist_recompute, data_id = "MNIST" )
-mnist_train, mnist_test = dp.splitData(100)
+mnist_train, mnist_test = dp.splitData(10000)
 start = time.time()
 mnist_train_dissimilarity = mnist_dissimilarity_matrix(mnist_train, mnist_train, mnist_recompute)
 end = time.time()
