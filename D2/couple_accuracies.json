@@ -1,0 +1,322 @@
+{
+    "gdp_debt":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"intentional homicide Rate",
+       "MAE":42.086228336680996,
+       "Accuracy column 1":"democracy index 2020",
+       "Accuracy column 2":"Homelessness population per 10k",
+       "Accuracy":0.7391304347826086
+    },
+    "gini % ":{
+       "MAE column 1":"Economic Freedom Score",
+       "MAE column 2":"military expenditures %gdp",
+       "MAE":5.579584860901926,
+       "Accuracy column 1":"gdp_debt",
+       "Accuracy column 2":"Obesity rate (%)",
+       "Accuracy":0.8260869565217391
+    },
+    "alcohol consumption 2016":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"Prevalecence of tobacco use 2000",
+       "MAE":3.316522967873111,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"spending on education(% GDP)",
+       "Accuracy":0.6521739130434783
+    },
+    "Average daily dietary energy consumption per capita(kilocalories)":{
+       "MAE column 1":"% Jewish",
+       "MAE column 2":"number of internet users %",
+       "MAE":277.5175127132058,
+       "Accuracy column 1":"2019 mortality rate, under-5 (per 1000 live births)",
+       "Accuracy column 2":"kg per capita 2002",
+       "Accuracy":0.782608695652174
+    },
+    "Median Age 2020":{
+       "MAE column 1":"Prevalecence of tobacco use 2000",
+       "MAE column 2":"number of internet users %",
+       "MAE":7.064163015555159,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.782608695652174
+    },
+    "health expenditure per capita 2018":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"number of internet users %",
+       "MAE":1070.5131250001507,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.782608695652174
+    },
+    "spending on education(% GDP)":{
+       "MAE column 1":"democracy index 2020",
+       "MAE column 2":"2019 mortality rate, under-5 (per 1000 live births)",
+       "MAE":1.1108491387282742,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"% Islam",
+       "Accuracy":0.8260869565217391
+    },
+    "population growth":{
+       "MAE column 1":"2019 mortality rate, under-5 (per 1000 live births)",
+       "MAE column 2":"number of internet users %",
+       "MAE":0.8765302248327039,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"Equivalent to a 2-year degree or higher(%)",
+       "Accuracy":0.782608695652174
+    },
+    "democracy index 2020":{
+       "MAE column 1":"gini % ",
+       "MAE column 2":"% Jewish",
+       "MAE":1.7977010162123601,
+       "Accuracy column 1":"% Buddhists",
+       "Accuracy column 2":"Oil production per capita2021 (bbl/day/million people)",
+       "Accuracy":0.782608695652174
+    },
+    "Homelessness population per 10k":{
+       "MAE column 1":"population growth",
+       "MAE column 2":"Prevalecence of tobacco use 2000",
+       "MAE":187.50664185113135,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"intentional homicide Rate",
+       "Accuracy":0.782608695652174
+    },
+    "Economic Freedom Score":{
+       "MAE column 1":"gdp_debt",
+       "MAE column 2":"number of internet users %",
+       "MAE":6.564999022466105,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"% Jewish",
+       "Accuracy":0.8260869565217391
+    },
+    "milk consumption per capita(2013)":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"Age of first marriage(woman)",
+       "MAE":77.19295397775261,
+       "Accuracy column 1":"gdp_debt",
+       "Accuracy column 2":"intentional homicide Rate",
+       "Accuracy":0.7391304347826086
+    },
+    "2019 mortality rate, under-5 (per 1000 live births)":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"Fertility rate  in 2020(births/woman)",
+       "MAE":16.648547678340154,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8260869565217391
+    },
+    "literacy rate elderly(+65)":{
+       "MAE column 1":"Prevalecence of tobacco use 2000",
+       "MAE column 2":"number of internet users %",
+       "MAE":20.240693343102095,
+       "Accuracy column 1":"Prevalecence of tobacco use 2000",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8260869565217391
+    },
+    "% Islam":{
+       "MAE column 1":"% Buddhists",
+       "MAE column 2":"Prevalecence of tobacco use 2000",
+       "MAE":27.832446347972425,
+       "Accuracy column 1":"democracy index 2020",
+       "Accuracy column 2":"military expenditures %gdp",
+       "Accuracy":0.7391304347826086
+    },
+    "titles(total)":{
+       "MAE column 1":"Averagedownloadspeed(Mbit/s)(Ookla)",
+       "MAE column 2":"Oil production per capita2021 (bbl/day/million people)",
+       "MAE":13541.768456238446,
+       "Accuracy column 1":"spending on education(% GDP)",
+       "Accuracy column 2":"Prevalecence of tobacco use 2000",
+       "Accuracy":0.782608695652174
+    },
+    "% Buddhists":{
+       "MAE column 1":"Averagedownloadspeed(Mbit/s)(Ookla)",
+       "MAE column 2":"HDI 2021",
+       "MAE":4.981478383240824,
+       "Accuracy column 1":"Homelessness population per 10k",
+       "Accuracy column 2":"gdp estimate un",
+       "Accuracy":0.8260869565217391
+    },
+    "Obesity rate (%)":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"Age of first marriage(woman)",
+       "MAE":4.685226334963434,
+       "Accuracy column 1":"spending on education(% GDP)",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8260869565217391
+    },
+    "intentional homicide Rate":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"Incarceration rate per 100000",
+       "MAE":3.4269449256144955,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"Average daily dietary energy consumption per capita(kilocalories)",
+       "Accuracy":0.6956521739130435
+    },
+    "% Jewish":{
+       "MAE column 1":"gdp_debt",
+       "MAE column 2":"2019 mortality rate, under-5 (per 1000 live births)",
+       "MAE":0.9229594238500328,
+       "Accuracy column 1":"Average daily dietary energy consumption per capita(kilocalories)",
+       "Accuracy column 2":"milk consumption per capita(2013)",
+       "Accuracy":0.782608695652174
+    },
+    "Averagedownloadspeed(Mbit/s)(Ookla)":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"yes important %",
+       "MAE":25.355338880434736,
+       "Accuracy column 1":"yes important %",
+       "Accuracy column 2":"Average yearly temperature (1961\u20131990 Celsius)",
+       "Accuracy":0.8260869565217391
+    },
+    "% Christians":{
+       "MAE column 1":"Average daily dietary energy consumption per capita(kilocalories)",
+       "MAE column 2":"kg per capita 2002",
+       "MAE":28.098588849521747,
+       "Accuracy column 1":"Homelessness population per 10k",
+       "Accuracy column 2":"Anual nominal US",
+       "Accuracy":0.7391304347826086
+    },
+    "Oil production per capita2021 (bbl/day/million people)":{
+       "MAE column 1":"2019 mortality rate, under-5 (per 1000 live births)",
+       "MAE column 2":"Age of first marriage(woman)",
+       "MAE":33914.63621465988,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"% Buddhists",
+       "Accuracy":0.7391304347826086
+    },
+    "Anual nominal US":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"number of internet users %",
+       "MAE":3222.4559183141437,
+       "Accuracy column 1":"spending on education(% GDP)",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8695652173913043
+    },
+    "yes important %":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"number of internet users %",
+       "MAE":20.785560754875327,
+       "Accuracy column 1":"gdp_debt",
+       "Accuracy column 2":"Median Age 2020",
+       "Accuracy":0.782608695652174
+    },
+    "Prevalecence of tobacco use 2000":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"HDI 2021",
+       "MAE":8.132283187521802,
+       "Accuracy column 1":"titles(total)",
+       "Accuracy column 2":"% Jewish",
+       "Accuracy":0.782608695652174
+    },
+    "gdp estimate un":{
+       "MAE column 1":"titles(total)",
+       "MAE column 2":"number of internet users %",
+       "MAE":10059.42496629013,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8695652173913043
+    },
+    "number of internet users %":{
+       "MAE column 1":"Economic Freedom Score",
+       "MAE column 2":"Total Suicides per 100 000",
+       "MAE":20.671495449297332,
+       "Accuracy column 1":"democracy index 2020",
+       "Accuracy column 2":"military expenditures %gdp",
+       "Accuracy":0.8260869565217391
+    },
+    "Fertility rate  in 2020(births/woman)":{
+       "MAE column 1":"Economic Freedom Score",
+       "MAE column 2":"number of internet users %",
+       "MAE":0.8189083127644031,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8260869565217391
+    },
+    "HDI 2021":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"Total Suicides per 100 000",
+       "MAE":0.09937618349786521,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8260869565217391
+    },
+    "Age of first marriage(woman)":{
+       "MAE column 1":"% Jewish",
+       "MAE column 2":"number of internet users %",
+       "MAE":3.271149726921062,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.782608695652174
+    },
+    "Incarceration rate per 100000":{
+       "MAE column 1":"intentional homicide Rate",
+       "MAE column 2":"military expenditures %gdp",
+       "MAE":66.09549333813251,
+       "Accuracy column 1":"democracy index 2020",
+       "Accuracy column 2":"Averagedownloadspeed(Mbit/s)(Ookla)",
+       "Accuracy":0.782608695652174
+    },
+    "Average yearly temperature (1961\u20131990 Celsius)":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"HDI 2021",
+       "MAE":7.591513696808761,
+       "Accuracy column 1":"milk consumption per capita(2013)",
+       "Accuracy column 2":"% Islam",
+       "Accuracy":0.782608695652174
+    },
+    "Scientific publications per capita (in ppm)":{
+       "MAE column 1":"Oil production per capita2021 (bbl/day/million people)",
+       "MAE column 2":"number of internet users %",
+       "MAE":814.7388985646397,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.8260869565217391
+    },
+    "Life expentacy at birth":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"Fertility rate  in 2020(births/woman)",
+       "MAE":4.799622497261892,
+       "Accuracy column 1":"gini % ",
+       "Accuracy column 2":"number of internet users %",
+       "Accuracy":0.782608695652174
+    },
+    "Total Suicides per 100 000":{
+       "MAE column 1":"Average daily dietary energy consumption per capita(kilocalories)",
+       "MAE column 2":"gdp estimate un",
+       "MAE":3.143942227288199,
+       "Accuracy column 1":"gdp_debt",
+       "Accuracy column 2":"gdp estimate un",
+       "Accuracy":0.6956521739130435
+    },
+    "Equivalent to a 2-year degree or higher(%)":{
+       "MAE column 1":"gini % ",
+       "MAE column 2":"military expenditures %gdp",
+       "MAE":4.457126679269667,
+       "Accuracy column 1":"health expenditure per capita 2018",
+       "Accuracy column 2":"Life expentacy at birth",
+       "Accuracy":0.782608695652174
+    },
+    "Age of criminal responsibility":{
+       "MAE column 1":"number of internet users %",
+       "MAE column 2":"Life expentacy at birth",
+       "MAE":2.2439353254755314,
+       "Accuracy column 1":"population growth",
+       "Accuracy column 2":"intentional homicide Rate",
+       "Accuracy":0.6521739130434783
+    },
+    "kg per capita 2002":{
+       "MAE column 1":"% Jewish",
+       "MAE column 2":"number of internet users %",
+       "MAE":17.485595484773704,
+       "Accuracy column 1":"number of internet users %",
+       "Accuracy column 2":"Total Suicides per 100 000",
+       "Accuracy":0.9130434782608695
+    },
+    "military expenditures %gdp":{
+       "MAE column 1":"2019 mortality rate, under-5 (per 1000 live births)",
+       "MAE column 2":"Obesity rate (%)",
+       "MAE":0.18558915789965735,
+       "Accuracy column 1":"gdp_debt",
+       "Accuracy column 2":"Equivalent to a 2-year degree or higher(%)",
+       "Accuracy":0.7391304347826086
+    }
+ }
