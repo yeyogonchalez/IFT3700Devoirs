@@ -31,15 +31,16 @@ class DataParser:
     self.data_features = np.delete(data_features_db,0,0)
     self.recompute = recompute
     if data_id == "ADULT":
-      self.train_file_name = 'adult_train_set.npy'
-      self.test_file_name = 'adult_test_set.npy'
+      self.train_file_name = 'D1/npyFiles/adult_train_set.npy'
+      self.test_file_name = 'D1/npyFiles/adult_test_set.npy'
     else:
-      self.train_file_name = 'mnist_train_set.npy'
-      self.test_file_name = 'mnist_test_set.npy'
+      self.train_file_name = 'D1/npyFiles/mnist_train_set.npy'
+      self.test_file_name = 'D1/npyFiles/mnist_test_set.npy'
 
   def get_features(self):
     return self.data_features
 
+  #lors de la division en jeu d'entraînement et de test, on échantillonne pour des fins pratiques
   def splitData(self, sample_size):
     if self.recompute:
       features = self.data_features
@@ -97,22 +98,13 @@ def pcoa(train_set_dissimilarity, test_set_dissimilarity, n_components, train_co
 
 
 ##                                     CLUSTERING EVALUATION
-def compute_silhouette_score(dissimilarity_matrix, clusters):
-    scores = []
-    for i in range(len(dissimilarity_matrix)):
-        cluster = find_cluster(i, clusters)
-        a = np.mean([dissimilarity_matrix[i][j] for j in cluster if j!=i])
-        inter2 = [np.mean([dissimilarity_matrix[i][j] for j in clusters[k]]) for k in range(len(clusters)) if k != i]
-        b = np.min(inter2)
-        score = (b - a) / max(a, b)
-        scores.append(score)
-    return np.mean(scores)
-
+#finds to which cluster the point belongs to
 def find_cluster(i, clusters):
   for cluster in clusters:
     if i in cluster:
       return cluster
 
+#transforms a list into a list of clusters
 def clusterize(list, n_clusters):
   clusters = []
   for i in range(n_clusters):
@@ -280,10 +272,10 @@ def numeric_distance_std(X):
 ##                                          INIT
 
 ##SUPER IMPORTANT PARAMETER:
-adult_recompute = False
+adult_recompute = True
 ############################
 dp = DataParser("D1/adult.csv", adult_recompute, data_id = "ADULT")
-train_set, test_set = dp.splitData(13000)
+train_set, test_set = dp.splitData(100)
 start = time.time()
 train_set_dissimilarity = adult_dissimilarity_matrix(train_set, train_set, dp.get_features(), adult_recompute)
 end = time.time()

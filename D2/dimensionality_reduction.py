@@ -5,7 +5,7 @@ import numpy as np
 
 ##---------------------------------------------A------------------------------------------------------
 #loading data
-countries_data = ctn.convert('D2/regression_files/missing_regression_2_lr.csv')
+countries_data = ctn.convert('D2/regression_files/missing_regression_2_elastic.csv')
 countries_num_data = countries_data[:,1:]
 countries_names = countries_data[:,0]
 
