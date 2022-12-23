@@ -1,0 +1,162 @@
+{
+    "gdp_debt":{
+       "linear regression MAE":91.83182143092469,
+       "Bayes Classifier accuracy":0.696969696969697
+    },
+    "gini % ":{
+       "linear regression MAE":4.562878702349425,
+       "Bayes Classifier accuracy":0.7272727272727273
+    },
+    "alcohol consumption 2016":{
+       "linear regression MAE":2.1058372573922717,
+       "Bayes Classifier accuracy":0.8484848484848485
+    },
+    "Average daily dietary energy consumption per capita(kilocalories)":{
+       "linear regression MAE":196.60891084586282,
+       "Bayes Classifier accuracy":0.8484848484848485
+    },
+    "Median Age 2020":{
+       "linear regression MAE":2.2037657345670634,
+       "Bayes Classifier accuracy":0.8787878787878788
+    },
+    "health expenditure per capita 2018":{
+       "linear regression MAE":420.634929749359,
+       "Bayes Classifier accuracy":1.0
+    },
+    "spending on education(% GDP)":{
+       "linear regression MAE":1.2575932376240684,
+       "Bayes Classifier accuracy":0.5757575757575758
+    },
+    "population growth":{
+       "linear regression MAE":0.2787154267626723,
+       "Bayes Classifier accuracy":0.7878787878787878
+    },
+    "democracy index 2020":{
+       "linear regression MAE":1.0806194389059853,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "Homelessness population per 10k":{
+       "linear regression MAE":177.33090119190265,
+       "Bayes Classifier accuracy":0.6363636363636364
+    },
+    "Economic Freedom Score":{
+       "linear regression MAE":5.308603162573968,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "milk consumption per capita(2013)":{
+       "linear regression MAE":45.19889534689913,
+       "Bayes Classifier accuracy":0.7878787878787878
+    },
+    "2019 mortality rate, under-5 (per 1000 live births)":{
+       "linear regression MAE":8.745737053672181,
+       "Bayes Classifier accuracy":0.8787878787878788
+    },
+    "literacy rate elderly(+65)":{
+       "linear regression MAE":9.336151010925438,
+       "Bayes Classifier accuracy":0.8181818181818182
+    },
+    "% Islam":{
+       "linear regression MAE":12.191655679176352,
+       "Bayes Classifier accuracy":0.696969696969697
+    },
+    "books published titles(total)":{
+       "linear regression MAE":27814.907636549684,
+       "Bayes Classifier accuracy":0.696969696969697
+    },
+    "% Buddhists":{
+       "linear regression MAE":9.168296302502586,
+       "Bayes Classifier accuracy":0.6666666666666666
+    },
+    "Obesity rate (%)":{
+       "linear regression MAE":3.221444358373158,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "intentional homicide Rate":{
+       "linear regression MAE":3.5458834785522084,
+       "Bayes Classifier accuracy":0.6666666666666666
+    },
+    "% Jewish":{
+       "linear regression MAE":2.229956966447001,
+       "Bayes Classifier accuracy":0.6060606060606061
+    },
+    "Averagedownloadspeed(Mbit/s)(Ookla)":{
+       "linear regression MAE":23.020437266843476,
+       "Bayes Classifier accuracy":0.7272727272727273
+    },
+    "% Christians":{
+       "linear regression MAE":11.054588224900469,
+       "Bayes Classifier accuracy":0.8787878787878788
+    },
+    "Oil production per capita2021 (bbl/day/million people)":{
+       "linear regression MAE":25252.010269748866,
+       "Bayes Classifier accuracy":0.5757575757575758
+    },
+    "average anual income nominal US":{
+       "linear regression MAE":1971.3837369694788,
+       "Bayes Classifier accuracy":0.8181818181818182
+    },
+    " Religion yes important %":{
+       "linear regression MAE":9.932771142204864,
+       "Bayes Classifier accuracy":0.8181818181818182
+    },
+    "Prevalecence of tobacco use 2000":{
+       "linear regression MAE":9.00961488732447,
+       "Bayes Classifier accuracy":0.7272727272727273
+    },
+    "gdp estimate un":{
+       "linear regression MAE":3834.0204372722965,
+       "Bayes Classifier accuracy":0.8484848484848485
+    },
+    "number of internet users %":{
+       "linear regression MAE":10.970873419944757,
+       "Bayes Classifier accuracy":0.9393939393939394
+    },
+    "Fertility rate  in 2020(births/woman)":{
+       "linear regression MAE":0.35875524195147285,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "HDI 2021":{
+       "linear regression MAE":0.027733397676982248,
+       "Bayes Classifier accuracy":0.8787878787878788
+    },
+    "Age of first marriage(woman)":{
+       "linear regression MAE":1.9447280050675364,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "Incarceration rate per 100000":{
+       "linear regression MAE":42.92150999419299,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "Average yearly temperature (1961\u20131990 Celsius)":{
+       "linear regression MAE":3.8597986901576604,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "Scientific publications per capita (in ppm)":{
+       "linear regression MAE":415.5255963921406,
+       "Bayes Classifier accuracy":0.8484848484848485
+    },
+    "Life expentacy at birth":{
+       "linear regression MAE":1.8214790752990682,
+       "Bayes Classifier accuracy":0.7878787878787878
+    },
+    "Total Suicides per 100 000":{
+       "linear regression MAE":4.002236779003627,
+       "Bayes Classifier accuracy":0.6060606060606061
+    },
+    "Equivalent to a 2-year degree or higher(%)":{
+       "linear regression MAE":2.5975063525471844,
+       "Bayes Classifier accuracy":0.6363636363636364
+    },
+    "Age of criminal responsibility":{
+       "linear regression MAE":2.12325771053224,
+       "Bayes Classifier accuracy":0.696969696969697
+    },
+    "kg per capita 2002":{
+       "linear regression MAE":16.093675351518563,
+       "Bayes Classifier accuracy":0.7575757575757576
+    },
+    "military expenditures %gdp":{
+       "linear regression MAE":0.20996546849517062,
+       "Bayes Classifier accuracy":0.6666666666666666
+    }
+ }
