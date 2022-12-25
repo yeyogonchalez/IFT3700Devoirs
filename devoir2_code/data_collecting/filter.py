@@ -1,7 +1,7 @@
 import csv
 
 # Set the input and output file names
-input_file = 'D2/countries_dataset.csv'
+input_file = 'input_file'
 output_file = 'filtered_data.csv'
 
 # Open the input file and read the rows

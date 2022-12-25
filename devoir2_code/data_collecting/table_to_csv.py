@@ -31,7 +31,7 @@ titles=df.iloc[:,1]
 print('Column names:')
 for i, column_name in enumerate(df.columns):
     print(f'{i+1}: {column_name}')
-selected_columns = input('Enter the column numbers you want to include in the median calculation (separated by commas): ')
+selected_columns = input('Enter the column numbers you want to include(separated by commas): ')
 
 # Convert the selected column numbers to a list of integers
 selected_columns = [int(x) for x in selected_columns.split(',')]

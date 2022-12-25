@@ -13,7 +13,7 @@ def ensure_same_size(lists):
   return lists
 
 # Set the path to the folder containing the CSV files
-folder_path = "D2/treated columns"
+folder_path = "csv_folder" # replace with folder of csv
 
 # Get a list of all the files in the folder
 files = os.listdir(folder_path)
@@ -34,12 +34,11 @@ for csv_file in csv_files:
         # Read the rows into a list of tuples
         rows = list(reader)
         # Iterate through the list of tuples
-        
         for row in rows:
             altered=False
-            
-            #print(row)
+    
             country, category = row
+
             # Special Cases
             if 'Anguilla' in country:country='Anguilla' ; altered=True
             if 'Puerto Rico' in country:country='Puerto Rico'  ; altered=True
@@ -91,8 +90,8 @@ for csv_file in csv_files:
             if 'Curacao' in country:country="Curaçao"; altered=True
             if 'Republic of Congo' in country:country="Congo"; altered=True
             if 'DR' in country:country="Congo"; altered=True
+
             # Check if the country is already in the list
-            #if altered:category+='alt'
             found = False
             for i, c in enumerate(countries):
                 if c[0] == country:
@@ -117,8 +116,6 @@ for csv_file in csv_files:
 for c in countries:
     while len(c) < len(countries[0]):
         c.append("NA")
-
-# countries is now a list of lists where each list contains the country name followed by the categories
 
 
 # Open a file for writing

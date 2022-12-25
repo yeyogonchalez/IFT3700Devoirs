@@ -2,7 +2,7 @@
     "gdp_debt":{
        "Scientific publications per capita (in ppm)":0.523923357064687
     },
-    "gini % ":{
+    "income equality gini % ":{
        "Average yearly temperature (1961\u20131990 Celsius)":0.47824694267541584
     },
     "alcohol consumption 2016":{
@@ -54,7 +54,7 @@
        "HDI 2021":0.5954428020534143
     },
     "intentional homicide Rate":{
-       "gini % ":0.41627644008359904
+       "income equality gini % ":0.41627644008359904
     },
     "% Jewish":{
        "military expenditures %gdp":0.4737689922782091
@@ -68,7 +68,7 @@
     "Oil production per capita2021 (bbl/day/million people)":{
        "military expenditures %gdp":0.42025165403052445
     },
-    "Anual nominal US":{
+    "minimum wage anual nominal US":{
        "gdp estimate un":0.8146008327726627
     },
     "Religion yes important %":{
